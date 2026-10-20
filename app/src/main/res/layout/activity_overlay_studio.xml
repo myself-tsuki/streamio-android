@@ -92,30 +92,32 @@
 
   <HorizontalScrollView
     android:layout_width="match_parent"
-    android:layout_height="76dp"
-    android:background="#08090A"
+    android:layout_height="wrap_content"
+    android:background="@color/md_theme_surfaceContainerLow"
     android:fillViewport="true"
+    android:paddingBottom="36dp"
+    android:paddingTop="6dp"
     android:scrollbars="none">
 
     <LinearLayout
       android:layout_width="wrap_content"
-      android:layout_height="match_parent"
-      android:gravity="center"
+      android:layout_height="wrap_content"
+      android:gravity="center_vertical"
       android:orientation="horizontal"
       android:paddingHorizontal="8dp">
 
       <TextView
         android:id="@+id/btn_portrait_orientation"
         android:layout_width="82dp"
-        android:layout_height="64dp"
+        android:layout_height="58dp"
         android:background="@drawable/overlay_orientation_active"
         android:drawableTop="@drawable/ic_screen_portrait"
-        android:drawablePadding="3dp"
+        android:drawablePadding="2dp"
         android:gravity="center"
         android:maxLines="1"
         android:text="Portrait"
-        android:textColor="#00E676"
-        android:textSize="12sp"
+        android:textColor="@color/md_theme_primary"
+        android:textSize="11sp"
         android:textStyle="bold" />
 
       <View android:layout_width="4dp" android:layout_height="1dp" />
@@ -123,15 +125,15 @@
       <TextView
         android:id="@+id/btn_landscape_orientation"
         android:layout_width="82dp"
-        android:layout_height="64dp"
+        android:layout_height="58dp"
         android:background="@drawable/overlay_orientation_inactive"
         android:drawableTop="@drawable/ic_screen_landscape"
-        android:drawablePadding="3dp"
+        android:drawablePadding="2dp"
         android:gravity="center"
         android:maxLines="1"
         android:text="Landscape"
-        android:textColor="#B8BDC7"
-        android:textSize="12sp" />
+        android:textColor="@color/md_theme_onSurfaceVariant"
+        android:textSize="11sp" />
 
       <View android:layout_width="8dp" android:layout_height="1dp" />
 

@@ -18,6 +18,7 @@ import com.stream.prime.settings.StreamSettingsActivity
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
+import android.content.res.ColorStateList
 
 class FileStreamingActivity : AppCompatActivity(), FileStreamService.StreamCallback {
 
@@ -368,12 +369,17 @@ class FileStreamingActivity : AppCompatActivity(), FileStreamService.StreamCallb
     }
 
     private fun updateLoopButtonState() {
-        binding.btnLoop.setTextColor(
-            if (isLoopEnabled) 
-                ContextCompat.getColor(this, R.color.prism_neon_green)
-            else 
-                ContextCompat.getColor(this, R.color.prism_text_secondary)
-        )
+        if (isLoopEnabled) {
+            binding.btnLoop.setIconResource(R.drawable.ic_repeat)
+            binding.btnLoop.iconTint = ColorStateList.valueOf(ContextCompat.getColor(this, R.color.md_theme_primary))
+            binding.btnLoop.setTextColor(ContextCompat.getColor(this, R.color.md_theme_primary))
+            binding.btnLoop.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(this, R.color.md_theme_primaryContainer))
+        } else {
+            binding.btnLoop.setIconResource(R.drawable.ic_repeat)
+            binding.btnLoop.iconTint = ColorStateList.valueOf(ContextCompat.getColor(this, R.color.md_theme_onSurfaceVariant))
+            binding.btnLoop.setTextColor(ContextCompat.getColor(this, R.color.md_theme_onSurfaceVariant))
+            binding.btnLoop.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(this, R.color.md_theme_surfaceContainerHigh))
+        }
     }
 
     private fun updateStatusText(status: String) {
@@ -390,15 +396,47 @@ class FileStreamingActivity : AppCompatActivity(), FileStreamService.StreamCallb
     }
 
     private fun updateStreamButtonState() {
-        binding.btnStream.text = if (isStreaming) "⏹" else "▶"
+        if (isStreaming) {
+            binding.btnStream.text = "STOP"
+            binding.btnStream.setIconResource(R.drawable.ic_stop)
+            binding.btnStream.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(this, R.color.md_theme_error))
+            binding.btnStream.setTextColor(ContextCompat.getColor(this, R.color.md_theme_onError))
+            binding.btnStream.iconTint = ColorStateList.valueOf(ContextCompat.getColor(this, R.color.md_theme_onError))
+        } else {
+            binding.btnStream.text = "STREAM"
+            binding.btnStream.setIconResource(R.drawable.ic_stream_start)
+            binding.btnStream.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(this, R.color.md_theme_primary))
+            binding.btnStream.setTextColor(ContextCompat.getColor(this, R.color.md_theme_onPrimary))
+            binding.btnStream.iconTint = ColorStateList.valueOf(ContextCompat.getColor(this, R.color.md_theme_onPrimary))
+        }
     }
 
     private fun updateRecordButtonState() {
-        binding.btnRecord.text = if (isRecording) "⏹" else "●"
+        if (isRecording) {
+            binding.btnRecord.text = "STOP"
+            binding.btnRecord.setIconResource(R.drawable.ic_stop)
+            binding.btnRecord.setTextColor(ContextCompat.getColor(this, R.color.md_theme_error))
+            binding.btnRecord.iconTint = ColorStateList.valueOf(ContextCompat.getColor(this, R.color.md_theme_error))
+        } else {
+            binding.btnRecord.text = "REC"
+            binding.btnRecord.setIconResource(R.drawable.ic_record)
+            binding.btnRecord.setTextColor(ContextCompat.getColor(this, R.color.md_theme_error))
+            binding.btnRecord.iconTint = ColorStateList.valueOf(ContextCompat.getColor(this, R.color.md_theme_error))
+        }
     }
 
     private fun updateMicButtonState() {
-        binding.btnMic.text = if (isMicMuted) "🔇" else "🎤"
+        if (isMicMuted) {
+            binding.btnMic.text = "MUTED"
+            binding.btnMic.setIconResource(R.drawable.ic_mic_off)
+            binding.btnMic.setTextColor(ContextCompat.getColor(this, R.color.md_theme_error))
+            binding.btnMic.iconTint = ColorStateList.valueOf(ContextCompat.getColor(this, R.color.md_theme_error))
+        } else {
+            binding.btnMic.text = "MIC"
+            binding.btnMic.setIconResource(R.drawable.ic_mic_on)
+            binding.btnMic.setTextColor(ContextCompat.getColor(this, R.color.md_theme_onSurface))
+            binding.btnMic.iconTint = ColorStateList.valueOf(ContextCompat.getColor(this, R.color.md_theme_primary))
+        }
     }
 
     private fun startStreamTimer() {

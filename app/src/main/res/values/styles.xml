@@ -7,6 +7,7 @@
     <item name="android:textStyle">bold</item>
   </style>
 
+  <style name="TextAppearance.App.HeadlineLarge" parent="TextAppearance.Material3.HeadlineLarge" />
   <style name="TextAppearance.App.HeadlineMedium" parent="TextAppearance.Material3.HeadlineMedium" />
   <style name="TextAppearance.App.HeadlineSmall" parent="TextAppearance.Material3.HeadlineSmall" />
   <style name="TextAppearance.App.TitleLarge" parent="TextAppearance.Material3.TitleLarge" />
@@ -29,17 +30,27 @@
   <!-- Material 3 Expressive button styles -->
   <style name="Widget.App.Button" parent="Widget.Material3.Button">
     <item name="cornerRadius">24dp</item>
-    <item name="android:minHeight">48dp</item>
+    <item name="android:minHeight">52dp</item>
+    <item name="android:textColor">@color/m3_button_primary_text</item>
+    <item name="backgroundTint">@color/m3_button_primary_bg</item>
+    <item name="iconTint">@color/m3_button_primary_text</item>
   </style>
 
   <style name="Widget.App.Button.Tonal" parent="Widget.Material3.Button.TonalButton">
     <item name="cornerRadius">24dp</item>
-    <item name="android:minHeight">48dp</item>
+    <item name="android:minHeight">52dp</item>
+    <item name="android:textColor">@color/md_theme_onSecondaryContainer</item>
+    <item name="backgroundTint">@color/md_theme_secondaryContainer</item>
+    <item name="iconTint">@color/md_theme_onSecondaryContainer</item>
   </style>
 
   <style name="Widget.App.Button.Secondary" parent="Widget.Material3.Button.OutlinedButton">
     <item name="cornerRadius">24dp</item>
-    <item name="android:minHeight">48dp</item>
+    <item name="android:minHeight">52dp</item>
+    <item name="android:textColor">@color/md_theme_primary</item>
+    <item name="strokeColor">@color/md_theme_outlineVariant</item>
+    <item name="strokeWidth">1.5dp</item>
+    <item name="iconTint">@color/md_theme_primary</item>
   </style>
 
   <!-- Material 3 Expressive Card styles -->

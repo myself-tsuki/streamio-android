@@ -10,55 +10,92 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <!-- Top Control Bar -->
+        <!-- Top App Bar -->
         <LinearLayout
             android:id="@+id/top_controls"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:paddingHorizontal="16dp"
-            android:paddingVertical="10dp"
+            android:paddingTop="12dp"
+            android:paddingBottom="8dp"
             android:gravity="center_vertical"
             app:layout_constraintTop_toTopOf="parent">
 
             <!-- Back Button -->
-            <ImageView
+            <com.google.android.material.card.MaterialCardView
                 android:id="@+id/btn_back"
                 android:layout_width="44dp"
                 android:layout_height="44dp"
-                android:src="@drawable/ic_arrow_back"
-                app:tint="@color/md_theme_onSurface"
-                android:padding="10dp"
-                android:scaleType="centerInside"
-                android:background="@drawable/prism_circular_button"
+                app:cardCornerRadius="22dp"
+                app:cardElevation="0dp"
+                app:strokeWidth="1dp"
+                app:strokeColor="@color/md_theme_outlineVariant"
+                app:cardBackgroundColor="@color/md_theme_surfaceContainerHigh"
                 android:clickable="true"
                 android:focusable="true"
-                android:contentDescription="Back" />
+                android:foreground="?attr/selectableItemBackground"
+                android:contentDescription="Back">
 
-            <!-- Title Header -->
-            <TextView
+                <ImageView
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_arrow_back"
+                    app:tint="@color/md_theme_onSurface" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Title & Live Badge -->
+            <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Stream Studio"
-                android:textAppearance="@style/TextAppearance.App.TitleMedium"
-                android:textColor="@color/md_theme_onSurface"
-                android:textStyle="bold"
-                android:gravity="center" />
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Stream Studio"
+                    android:textAppearance="@style/TextAppearance.App.TitleMedium"
+                    android:textColor="@color/md_theme_onSurface"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="BROADCAST CONSOLE"
+                    android:textSize="9sp"
+                    android:textStyle="bold"
+                    android:letterSpacing="0.08"
+                    android:textColor="@color/md_theme_primary" />
+
+            </LinearLayout>
 
             <!-- Settings Button -->
-            <ImageView
+            <com.google.android.material.card.MaterialCardView
                 android:id="@+id/btn_settings"
                 android:layout_width="44dp"
                 android:layout_height="44dp"
-                android:src="@drawable/ic_settings"
-                app:tint="@color/md_theme_onSurface"
-                android:padding="11dp"
-                android:scaleType="centerInside"
-                android:background="@drawable/prism_circular_button"
+                app:cardCornerRadius="22dp"
+                app:cardElevation="0dp"
+                app:strokeWidth="1dp"
+                app:strokeColor="@color/md_theme_outlineVariant"
+                app:cardBackgroundColor="@color/md_theme_surfaceContainerHigh"
                 android:clickable="true"
                 android:focusable="true"
-                android:contentDescription="Settings" />
+                android:foreground="?attr/selectableItemBackground"
+                android:contentDescription="Settings">
+
+                <ImageView
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_settings"
+                    app:tint="@color/md_theme_onSurface" />
+
+            </com.google.android.material.card.MaterialCardView>
 
         </LinearLayout>
 
@@ -68,8 +105,8 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="6dp"
-            android:layout_marginBottom="12dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="10dp"
             app:cardCornerRadius="24dp"
             app:cardElevation="0dp"
             app:strokeWidth="1dp"
@@ -91,175 +128,248 @@
                     android:layout_height="match_parent"
                     android:background="@drawable/prism_video_placeholder" />
 
-                <!-- Streaming Overlay Status Pill -->
-                <LinearLayout
+                <!-- Streaming Status Pill -->
+                <com.google.android.material.card.MaterialCardView
                     android:id="@+id/streaming_overlay"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="top|start"
-                    android:layout_margin="16dp"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:background="@drawable/prism_overlay_background"
-                    android:paddingHorizontal="12dp"
-                    android:paddingVertical="8dp">
+                    android:layout_margin="14dp"
+                    app:cardCornerRadius="14dp"
+                    app:cardElevation="2dp"
+                    app:strokeWidth="1dp"
+                    app:strokeColor="@color/md_theme_outlineVariant"
+                    app:cardBackgroundColor="@color/md_theme_surfaceContainerHighest">
 
-                    <View
-                        android:layout_width="8dp"
-                        android:layout_height="8dp"
-                        android:layout_marginEnd="8dp"
-                        android:background="@drawable/prism_live_indicator" />
-
-                    <TextView
-                        android:id="@+id/txt_live_status"
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="LIVE"
-                        android:textColor="@color/md_theme_error"
-                        android:textSize="11sp"
-                        android:textStyle="bold"
-                        android:layout_marginEnd="8dp" />
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:paddingHorizontal="10dp"
+                        android:paddingVertical="6dp">
 
-                    <TextView
-                        android:id="@+id/txt_stream_duration"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="00:00"
-                        android:textColor="@color/md_theme_onSurfaceVariant"
-                        android:textSize="11sp" />
+                        <View
+                            android:layout_width="8dp"
+                            android:layout_height="8dp"
+                            android:layout_marginEnd="6dp"
+                            android:background="@drawable/live_status_indicator" />
 
-                </LinearLayout>
+                        <TextView
+                            android:id="@+id/txt_live_status"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="LIVE"
+                            android:textColor="@color/md_theme_error"
+                            android:textSize="11sp"
+                            android:textStyle="bold"
+                            android:layout_marginEnd="6dp" />
+
+                        <TextView
+                            android:id="@+id/txt_stream_duration"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="00:00"
+                            android:textColor="@color/md_theme_onSurface"
+                            android:textSize="11sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
 
                 <!-- Bitrate Pill -->
-                <TextView
-                    android:id="@+id/txt_bitrate"
+                <com.google.android.material.card.MaterialCardView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="top|end"
-                    android:layout_margin="16dp"
-                    android:text="0.0 Mbps"
-                    android:textColor="@color/md_theme_onSurface"
-                    android:textAppearance="@style/TextAppearance.App.LabelMedium"
-                    android:background="@drawable/prism_overlay_background"
-                    android:paddingHorizontal="12dp"
-                    android:paddingVertical="8dp" />
+                    android:layout_margin="14dp"
+                    app:cardCornerRadius="14dp"
+                    app:cardElevation="2dp"
+                    app:strokeWidth="1dp"
+                    app:strokeColor="@color/md_theme_outlineVariant"
+                    app:cardBackgroundColor="@color/md_theme_surfaceContainerHighest">
+
+                    <TextView
+                        android:id="@+id/txt_bitrate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0.0 Mbps"
+                        android:textColor="@color/md_theme_primary"
+                        android:textAppearance="@style/TextAppearance.App.LabelSmall"
+                        android:textStyle="bold"
+                        android:paddingHorizontal="10dp"
+                        android:paddingVertical="6dp" />
+
+                </com.google.android.material.card.MaterialCardView>
 
                 <!-- Overlay Editor Button -->
-                <ImageView
+                <com.google.android.material.card.MaterialCardView
                     android:id="@+id/btn_overlay"
                     android:layout_width="44dp"
                     android:layout_height="44dp"
                     android:layout_gravity="bottom|end"
-                    android:layout_margin="16dp"
-                    android:src="@drawable/ic_effects"
-                    app:tint="@color/md_theme_onSurface"
-                    android:padding="11dp"
-                    android:scaleType="centerInside"
-                    android:background="@drawable/prism_circular_button"
+                    android:layout_margin="14dp"
+                    app:cardCornerRadius="22dp"
+                    app:cardElevation="2dp"
+                    app:strokeWidth="1dp"
+                    app:strokeColor="@color/md_theme_outlineVariant"
+                    app:cardBackgroundColor="@color/md_theme_surfaceContainerHighest"
                     android:clickable="true"
                     android:focusable="true"
-                    android:contentDescription="Overlay" />
+                    android:foreground="?attr/selectableItemBackground"
+                    android:contentDescription="Overlay">
+
+                    <ImageView
+                        android:layout_width="22dp"
+                        android:layout_height="22dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_effects"
+                        app:tint="@color/md_theme_onSurface" />
+
+                </com.google.android.material.card.MaterialCardView>
 
             </FrameLayout>
 
         </com.google.android.material.card.MaterialCardView>
 
         <!-- Audio Volume Controls Card -->
-        <LinearLayout
+        <com.google.android.material.card.MaterialCardView
             android:id="@+id/volume_controls"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
-            android:layout_marginBottom="14dp"
-            android:orientation="vertical"
-            android:background="@drawable/prism_overlay_background"
-            android:padding="16dp"
+            android:layout_marginBottom="12dp"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="0dp"
+            app:strokeWidth="1dp"
+            app:strokeColor="@color/md_theme_outlineVariant"
+            app:cardBackgroundColor="@color/md_theme_surfaceContainer"
             app:layout_constraintBottom_toTopOf="@id/bottom_controls">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Audio Mixer"
-                android:textAppearance="@style/TextAppearance.App.LabelLarge"
-                android:textColor="@color/md_theme_primary"
-                android:letterSpacing="0.04"
-                android:gravity="center"
-                android:layout_marginBottom="12dp" />
-
-            <!-- Mic Volume -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:layout_marginBottom="10dp">
+                android:orientation="vertical"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="12dp">
 
-                <TextView
-                    android:layout_width="88dp"
+                <!-- Header -->
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="🎤 Mic"
-                    android:textAppearance="@style/TextAppearance.App.BodyMedium"
-                    android:textColor="@color/md_theme_onSurface" />
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="8dp">
 
-                <SeekBar
-                    android:id="@+id/seekbar_mic_volume"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:max="100"
-                    android:progress="100"
-                    android:progressTint="@color/md_theme_primary"
-                    android:thumbTint="@color/md_theme_primary" />
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Audio Mixer"
+                        android:textAppearance="@style/TextAppearance.App.LabelLarge"
+                        android:textColor="@color/md_theme_primary"
+                        android:textStyle="bold"
+                        android:letterSpacing="0.04" />
 
-                <TextView
-                    android:id="@+id/txt_mic_volume"
-                    android:layout_width="52dp"
+                </LinearLayout>
+
+                <!-- Mic Volume -->
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="100%"
-                    android:textAppearance="@style/TextAppearance.App.LabelMedium"
-                    android:textColor="@color/md_theme_primary"
-                    android:gravity="end" />
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="6dp">
+
+                    <ImageView
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:src="@drawable/ic_mic_on"
+                        app:tint="@color/md_theme_primary"
+                        android:layout_marginEnd="8dp" />
+
+                    <TextView
+                        android:layout_width="54dp"
+                        android:layout_height="wrap_content"
+                        android:text="Mic"
+                        android:textAppearance="@style/TextAppearance.App.BodyMedium"
+                        android:textColor="@color/md_theme_onSurface"
+                        android:textStyle="bold" />
+
+                    <SeekBar
+                        android:id="@+id/seekbar_mic_volume"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:max="100"
+                        android:progress="100"
+                        android:splitTrack="false"
+                        android:progressTint="@color/md_theme_primary"
+                        android:thumbTint="@color/md_theme_primary" />
+
+                    <TextView
+                        android:id="@+id/txt_mic_volume"
+                        android:layout_width="48dp"
+                        android:layout_height="wrap_content"
+                        android:text="100%"
+                        android:textAppearance="@style/TextAppearance.App.LabelMedium"
+                        android:textColor="@color/md_theme_primary"
+                        android:textStyle="bold"
+                        android:gravity="end" />
+
+                </LinearLayout>
+
+                <!-- Device Audio Volume -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <ImageView
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:src="@drawable/ic_screen"
+                        app:tint="@color/md_theme_secondary"
+                        android:layout_marginEnd="8dp" />
+
+                    <TextView
+                        android:layout_width="54dp"
+                        android:layout_height="wrap_content"
+                        android:text="Device"
+                        android:textAppearance="@style/TextAppearance.App.BodyMedium"
+                        android:textColor="@color/md_theme_onSurface"
+                        android:textStyle="bold" />
+
+                    <SeekBar
+                        android:id="@+id/seekbar_device_volume"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:max="100"
+                        android:progress="100"
+                        android:splitTrack="false"
+                        android:progressTint="@color/md_theme_secondary"
+                        android:thumbTint="@color/md_theme_secondary" />
+
+                    <TextView
+                        android:id="@+id/txt_device_volume"
+                        android:layout_width="48dp"
+                        android:layout_height="wrap_content"
+                        android:text="100%"
+                        android:textAppearance="@style/TextAppearance.App.LabelMedium"
+                        android:textColor="@color/md_theme_secondary"
+                        android:textStyle="bold"
+                        android:gravity="end" />
+
+                </LinearLayout>
 
             </LinearLayout>
 
-            <!-- Device Audio Volume -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical">
+        </com.google.android.material.card.MaterialCardView>
 
-                <TextView
-                    android:layout_width="88dp"
-                    android:layout_height="wrap_content"
-                    android:text="📱 Device"
-                    android:textAppearance="@style/TextAppearance.App.BodyMedium"
-                    android:textColor="@color/md_theme_onSurface" />
-
-                <SeekBar
-                    android:id="@+id/seekbar_device_volume"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:max="100"
-                    android:progress="100"
-                    android:progressTint="@color/md_theme_secondary"
-                    android:thumbTint="@color/md_theme_secondary" />
-
-                <TextView
-                    android:id="@+id/txt_device_volume"
-                    android:layout_width="52dp"
-                    android:layout_height="wrap_content"
-                    android:text="100%"
-                    android:textAppearance="@style/TextAppearance.App.LabelMedium"
-                    android:textColor="@color/md_theme_secondary"
-                    android:gravity="end" />
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <!-- Bottom Action Controls -->
+        <!-- Bottom Action Controls Dock (With Safe Navigation Inset Padding) -->
         <LinearLayout
             android:id="@+id/bottom_controls"
             android:layout_width="match_parent"
@@ -267,51 +377,69 @@
             android:orientation="horizontal"
             android:gravity="center"
             android:paddingHorizontal="16dp"
-            android:paddingBottom="20dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="42dp"
             app:layout_constraintBottom_toBottomOf="parent">
 
             <!-- Mic Toggle Button -->
-            <TextView
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_mic"
                 android:layout_width="64dp"
-                android:layout_height="64dp"
-                android:layout_marginEnd="24dp"
-                android:text="🎤"
-                android:textSize="26sp"
+                android:layout_height="60dp"
+                android:layout_marginEnd="16dp"
+                app:cornerRadius="20dp"
+                app:icon="@drawable/ic_mic_on"
+                app:iconSize="22dp"
+                app:iconGravity="textStart"
+                app:iconPadding="0dp"
+                app:iconTint="@color/md_theme_primary"
+                android:text="MIC"
+                android:textSize="11sp"
+                android:textStyle="bold"
                 android:textColor="@color/md_theme_onSurface"
-                android:gravity="center"
-                android:background="@drawable/prism_circular_button"
-                android:clickable="true"
-                android:focusable="true"
+                app:backgroundTint="@color/md_theme_surfaceContainerHigh"
+                app:strokeWidth="1dp"
+                app:strokeColor="@color/md_theme_outlineVariant"
                 android:contentDescription="Microphone" />
 
             <!-- Stream Start/Stop Hero Button -->
-            <TextView
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_stream"
-                android:layout_width="84dp"
-                android:layout_height="84dp"
-                android:layout_marginEnd="24dp"
-                android:text="▶"
-                android:textSize="36sp"
+                android:layout_width="144dp"
+                android:layout_height="60dp"
+                android:layout_marginEnd="16dp"
+                app:cornerRadius="24dp"
+                app:icon="@drawable/ic_stream_start"
+                app:iconSize="24dp"
+                app:iconGravity="textStart"
+                app:iconPadding="8dp"
+                app:iconTint="@color/md_theme_onPrimary"
+                android:text="GO LIVE"
+                android:textAppearance="@style/TextAppearance.App.LabelLarge"
+                android:textStyle="bold"
                 android:textColor="@color/md_theme_onPrimary"
-                android:gravity="center"
-                android:background="@drawable/prism_stream_button"
-                android:clickable="true"
-                android:focusable="true"
+                app:backgroundTint="@color/md_theme_primary"
+                app:elevation="4dp"
                 android:contentDescription="Stream" />
 
             <!-- Record Button -->
-            <TextView
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_record"
                 android:layout_width="64dp"
-                android:layout_height="64dp"
-                android:text="●"
-                android:textSize="28sp"
+                android:layout_height="60dp"
+                app:cornerRadius="20dp"
+                app:icon="@drawable/ic_record"
+                app:iconSize="22dp"
+                app:iconGravity="textStart"
+                app:iconPadding="0dp"
+                app:iconTint="@color/md_theme_error"
+                android:text="REC"
+                android:textSize="11sp"
+                android:textStyle="bold"
                 android:textColor="@color/md_theme_error"
-                android:gravity="center"
-                android:background="@drawable/prism_circular_button"
-                android:clickable="true"
-                android:focusable="true"
+                app:backgroundTint="@color/md_theme_surfaceContainerHigh"
+                app:strokeWidth="1dp"
+                app:strokeColor="@color/md_theme_outlineVariant"
                 android:contentDescription="Record" />
 
         </LinearLayout>

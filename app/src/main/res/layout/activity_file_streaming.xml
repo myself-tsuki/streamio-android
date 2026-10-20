@@ -1,84 +1,130 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/md_theme_surface">
 
-    <!-- Top Controls App Bar -->
+    <!-- Top App Bar -->
     <LinearLayout
         android:id="@+id/top_controls"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:paddingHorizontal="16dp"
-        android:paddingVertical="12dp"
+        android:paddingTop="12dp"
+        android:paddingBottom="8dp"
         android:gravity="center_vertical"
         android:background="@color/md_theme_surface">
 
-        <TextView
+        <!-- Back Button -->
+        <com.google.android.material.card.MaterialCardView
             android:id="@+id/btn_back"
             android:layout_width="44dp"
             android:layout_height="44dp"
-            android:text="←"
-            android:textSize="22sp"
-            android:textStyle="bold"
-            android:textColor="@color/md_theme_onSurface"
-            android:gravity="center"
-            android:background="@drawable/prism_circular_button"
+            app:cardCornerRadius="22dp"
+            app:cardElevation="0dp"
+            app:strokeWidth="1dp"
+            app:strokeColor="@color/md_theme_outlineVariant"
+            app:cardBackgroundColor="@color/md_theme_surfaceContainerHigh"
             android:clickable="true"
             android:focusable="true"
-            android:contentDescription="Back" />
+            android:foreground="?attr/selectableItemBackground"
+            android:contentDescription="Back">
 
-        <TextView
+            <ImageView
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_arrow_back"
+                app:tint="@color/md_theme_onSurface" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Title & Subtitle -->
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="File Streaming"
-            android:textAppearance="@style/TextAppearance.App.TitleLarge"
-            android:textColor="@color/md_theme_onSurface"
-            android:textStyle="bold"
+            android:orientation="vertical"
             android:gravity="center"
-            android:layout_marginHorizontal="12dp" />
+            android:layout_marginHorizontal="8dp">
 
-        <!-- Loop Toggle -->
-        <TextView
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="File Streaming"
+                android:textAppearance="@style/TextAppearance.App.TitleMedium"
+                android:textColor="@color/md_theme_onSurface"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="VIDEO BROADCASTER"
+                android:textSize="9sp"
+                android:textStyle="bold"
+                android:letterSpacing="0.08"
+                android:textColor="@color/md_theme_primary" />
+
+        </LinearLayout>
+
+        <!-- Loop Toggle Button -->
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_loop"
             android:layout_width="44dp"
             android:layout_height="44dp"
-            android:text="🔁"
-            android:textSize="18sp"
+            app:cornerRadius="22dp"
+            app:icon="@drawable/ic_repeat"
+            app:iconSize="20dp"
+            app:iconGravity="textStart"
+            app:iconPadding="0dp"
+            android:padding="0dp"
+            app:iconTint="@color/md_theme_onSurfaceVariant"
             android:textColor="@color/md_theme_onSurfaceVariant"
-            android:gravity="center"
-            android:background="@drawable/prism_circular_button"
-            android:clickable="true"
-            android:focusable="true"
-            android:layout_marginEnd="10dp"
+            app:backgroundTint="@color/md_theme_surfaceContainerHigh"
+            app:strokeWidth="1dp"
+            app:strokeColor="@color/md_theme_outlineVariant"
+            android:layout_marginEnd="8dp"
             android:contentDescription="Toggle Loop" />
 
-        <TextView
+        <!-- Settings Button -->
+        <com.google.android.material.card.MaterialCardView
             android:id="@+id/btn_settings"
             android:layout_width="44dp"
             android:layout_height="44dp"
-            android:text="⚙"
-            android:textSize="20sp"
-            android:textColor="@color/md_theme_onSurface"
-            android:gravity="center"
-            android:background="@drawable/prism_circular_button"
+            app:cardCornerRadius="22dp"
+            app:cardElevation="0dp"
+            app:strokeWidth="1dp"
+            app:strokeColor="@color/md_theme_outlineVariant"
+            app:cardBackgroundColor="@color/md_theme_surfaceContainerHigh"
             android:clickable="true"
             android:focusable="true"
-            android:contentDescription="Settings" />
+            android:foreground="?attr/selectableItemBackground"
+            android:contentDescription="Settings">
+
+            <ImageView
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_settings"
+                app:tint="@color/md_theme_onSurface" />
+
+        </com.google.android.material.card.MaterialCardView>
 
     </LinearLayout>
 
-    <!-- Video Preview / Playback Info Card -->
+    <!-- Video Preview / Playback Card -->
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/video_preview_container"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:layout_margin="16dp"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="12dp"
         app:cardCornerRadius="24dp"
         app:cardElevation="0dp"
         app:strokeWidth="1dp"
@@ -90,20 +136,20 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:gravity="center"
-            android:padding="32dp">
+            android:padding="28dp">
 
-            <!-- Video Icon in Tonal Card -->
+            <!-- Video Icon Container -->
             <com.google.android.material.card.MaterialCardView
-                android:layout_width="88dp"
-                android:layout_height="88dp"
-                android:layout_marginBottom="24dp"
+                android:layout_width="84dp"
+                android:layout_height="84dp"
+                android:layout_marginBottom="20dp"
                 app:cardCornerRadius="28dp"
                 app:cardElevation="0dp"
                 app:cardBackgroundColor="@color/md_theme_secondaryContainer">
 
                 <ImageView
-                    android:layout_width="44dp"
-                    android:layout_height="44dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
                     android:layout_gravity="center"
                     android:src="@drawable/ic_file"
                     app:tint="@color/md_theme_onSecondaryContainer"
@@ -111,7 +157,7 @@
 
             </com.google.android.material.card.MaterialCardView>
 
-            <!-- Video Info -->
+            <!-- Video Info Title -->
             <TextView
                 android:id="@+id/tv_video_info"
                 android:layout_width="wrap_content"
@@ -121,7 +167,7 @@
                 android:textColor="@color/md_theme_onSurface"
                 android:textStyle="bold"
                 android:gravity="center"
-                android:layout_marginBottom="12dp" />
+                android:layout_marginBottom="8dp" />
 
             <!-- Stream Timer -->
             <TextView
@@ -129,9 +175,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="00:00"
-                android:textAppearance="@style/TextAppearance.App.HeadlineMedium"
+                android:textAppearance="@style/TextAppearance.App.HeadlineLarge"
                 android:textColor="@color/md_theme_primary"
                 android:textStyle="bold"
+                android:letterSpacing="0.04"
                 android:gravity="center"
                 android:layout_marginBottom="16dp" />
 
@@ -143,7 +190,7 @@
                 app:cardElevation="0dp"
                 app:strokeWidth="1dp"
                 app:strokeColor="@color/md_theme_outlineVariant"
-                app:cardBackgroundColor="@color/md_theme_surfaceContainerHigh">
+                app:cardBackgroundColor="@color/md_theme_surfaceContainerHighest">
 
                 <TextView
                     android:id="@+id/tv_status"
@@ -151,7 +198,8 @@
                     android:layout_height="wrap_content"
                     android:text="Ready to Stream"
                     android:textAppearance="@style/TextAppearance.App.LabelMedium"
-                    android:textColor="@color/md_theme_onSurfaceVariant"
+                    android:textColor="@color/md_theme_onSurface"
+                    android:textStyle="bold"
                     android:paddingHorizontal="16dp"
                     android:paddingVertical="8dp" />
 
@@ -161,59 +209,77 @@
 
     </com.google.android.material.card.MaterialCardView>
 
-    <!-- Control Buttons - Bottom Dock -->
+    <!-- Bottom Action Controls Dock (With Safe Navigation Inset Padding) -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center"
-        android:paddingHorizontal="20dp"
-        android:paddingVertical="20dp"
+        android:paddingHorizontal="16dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="42dp"
         android:background="@color/md_theme_surfaceContainerLow">
 
         <!-- Mic Button -->
-        <TextView
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_mic"
             android:layout_width="64dp"
-            android:layout_height="64dp"
-            android:text="🎤"
-            android:textSize="26sp"
+            android:layout_height="60dp"
+            android:layout_marginEnd="16dp"
+            app:cornerRadius="20dp"
+            app:icon="@drawable/ic_mic_on"
+            app:iconSize="22dp"
+            app:iconGravity="textStart"
+            app:iconPadding="0dp"
+            app:iconTint="@color/md_theme_primary"
+            android:text="MIC"
+            android:textSize="11sp"
+            android:textStyle="bold"
             android:textColor="@color/md_theme_onSurface"
-            android:gravity="center"
-            android:background="@drawable/prism_circular_button"
-            android:clickable="true"
-            android:focusable="true"
-            android:layout_marginEnd="20dp"
+            app:backgroundTint="@color/md_theme_surfaceContainerHigh"
+            app:strokeWidth="1dp"
+            app:strokeColor="@color/md_theme_outlineVariant"
             android:contentDescription="Microphone" />
 
+        <!-- Stream Button -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_stream"
+            android:layout_width="144dp"
+            android:layout_height="60dp"
+            android:layout_marginEnd="16dp"
+            app:cornerRadius="24dp"
+            app:icon="@drawable/ic_stream_start"
+            app:iconSize="24dp"
+            app:iconGravity="textStart"
+            app:iconPadding="8dp"
+            app:iconTint="@color/md_theme_onPrimary"
+            android:text="STREAM"
+            android:textAppearance="@style/TextAppearance.App.LabelLarge"
+            android:textStyle="bold"
+            android:textColor="@color/md_theme_onPrimary"
+            app:backgroundTint="@color/md_theme_primary"
+            app:elevation="4dp"
+            android:contentDescription="Stream" />
+
         <!-- Record Button -->
-        <TextView
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_record"
             android:layout_width="64dp"
-            android:layout_height="64dp"
-            android:text="●"
-            android:textSize="28sp"
+            android:layout_height="60dp"
+            app:cornerRadius="20dp"
+            app:icon="@drawable/ic_record"
+            app:iconSize="22dp"
+            app:iconGravity="textStart"
+            app:iconPadding="0dp"
+            app:iconTint="@color/md_theme_error"
+            android:text="REC"
+            android:textSize="11sp"
+            android:textStyle="bold"
             android:textColor="@color/md_theme_error"
-            android:gravity="center"
-            android:background="@drawable/prism_circular_button"
-            android:clickable="true"
-            android:focusable="true"
-            android:layout_marginEnd="20dp"
+            app:backgroundTint="@color/md_theme_surfaceContainerHigh"
+            app:strokeWidth="1dp"
+            app:strokeColor="@color/md_theme_outlineVariant"
             android:contentDescription="Record" />
-
-        <!-- Stream Button -->
-        <TextView
-            android:id="@+id/btn_stream"
-            android:layout_width="84dp"
-            android:layout_height="84dp"
-            android:text="▶"
-            android:textSize="36sp"
-            android:textColor="@color/md_theme_onPrimary"
-            android:gravity="center"
-            android:background="@drawable/prism_stream_button"
-            android:clickable="true"
-            android:focusable="true"
-            android:contentDescription="Stream" />
 
     </LinearLayout>
 

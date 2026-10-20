@@ -571,7 +571,8 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:paddingHorizontal="20dp"
-            android:paddingVertical="14dp"
+            android:paddingTop="12dp"
+            android:paddingBottom="42dp"
             android:gravity="center"
             android:background="@color/md_theme_surfaceContainerLow"
             app:layout_constraintBottom_toBottomOf="parent">

@@ -13,6 +13,9 @@ import android.view.View
 import android.view.WindowManager
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContextCompat
+import android.content.res.ColorStateList
+import com.google.android.material.button.MaterialButton
 import com.stream.prime.screen.ScreenService
 import com.stream.prime.settings.StreamSettingsActivity
 
@@ -102,17 +105,17 @@ class FloatingOverlayService : Service() {
 
     private fun setupButtonListeners() {
         // Stream start/stop button
-        floatingView.findViewById<TextView>(R.id.btn_floating_stream).setOnClickListener {
+        floatingView.findViewById<View>(R.id.btn_floating_stream).setOnClickListener {
             toggleStream()
         }
         
         // Settings button
-        floatingView.findViewById<TextView>(R.id.btn_floating_settings).setOnClickListener {
+        floatingView.findViewById<View>(R.id.btn_floating_settings).setOnClickListener {
             openSettings()
         }
         
         // Close button
-        floatingView.findViewById<TextView>(R.id.btn_floating_close).setOnClickListener {
+        floatingView.findViewById<View>(R.id.btn_floating_close).setOnClickListener {
             stopSelf()
         }
         
@@ -155,14 +158,16 @@ class FloatingOverlayService : Service() {
     private fun updateFloatingButtonStates() {
         try {
             val service = ScreenService.INSTANCE
-            val streamButton = floatingView.findViewById<TextView>(R.id.btn_floating_stream)
+            val streamButton = floatingView.findViewById<MaterialButton>(R.id.btn_floating_stream)
             
             if (service != null && service.isStreaming()) {
-                streamButton.text = "⏹"
-                streamButton.setBackgroundResource(R.drawable.prism_circular_button_red)
+                streamButton.setIconResource(R.drawable.ic_stop)
+                streamButton.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(this, R.color.md_theme_error))
+                streamButton.iconTint = ColorStateList.valueOf(ContextCompat.getColor(this, R.color.md_theme_onError))
             } else {
-                streamButton.text = "▶"
-                streamButton.setBackgroundResource(R.drawable.prism_circular_button)
+                streamButton.setIconResource(R.drawable.ic_stream_start)
+                streamButton.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(this, R.color.md_theme_primary))
+                streamButton.iconTint = ColorStateList.valueOf(ContextCompat.getColor(this, R.color.md_theme_onPrimary))
             }
         } catch (e: Exception) {
             Log.e(TAG, "Error updating floating button states: ${e.message}")

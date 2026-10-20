@@ -43,6 +43,7 @@ import android.net.Uri
 import com.stream.prime.utils.PermissionManager
 import com.stream.prime.overlay.LayerManagerActivity
 import java.util.Locale
+import android.content.res.ColorStateList
 
 @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
 class UnifiedStreamActivity : AppCompatActivity(), ConnectChecker, SurfaceHolder.Callback, SettingsManager.SettingsChangeListener {
@@ -355,7 +356,7 @@ class UnifiedStreamActivity : AppCompatActivity(), ConnectChecker, SurfaceHolder
         Log.d("UnifiedStreamActivity", "updateStreamingModeUI() - Current Mode: $currentStreamingMode")
         
         runOnUiThread {
-            binding.btnStream.text = "▶"
+            updateStreamButtonState()
         }
     }
 
@@ -592,7 +593,17 @@ class UnifiedStreamActivity : AppCompatActivity(), ConnectChecker, SurfaceHolder
             }
             binding.txtMicVolume.text = "$micVolume%"
             binding.txtMicVolume.alpha = if (isMicMuted) 0.45f else 1f
-            binding.btnMic.text = if (isMicMuted) "🔇" else "🎤"
+            if (isMicMuted) {
+                binding.btnMic.text = "MUTED"
+                binding.btnMic.setIconResource(R.drawable.ic_mic_off)
+                binding.btnMic.setTextColor(ContextCompat.getColor(this, R.color.md_theme_error))
+                binding.btnMic.iconTint = ColorStateList.valueOf(ContextCompat.getColor(this, R.color.md_theme_error))
+            } else {
+                binding.btnMic.text = "MIC"
+                binding.btnMic.setIconResource(R.drawable.ic_mic_on)
+                binding.btnMic.setTextColor(ContextCompat.getColor(this, R.color.md_theme_onSurface))
+                binding.btnMic.iconTint = ColorStateList.valueOf(ContextCompat.getColor(this, R.color.md_theme_primary))
+            }
         }
     }
 
@@ -1042,9 +1053,17 @@ class UnifiedStreamActivity : AppCompatActivity(), ConnectChecker, SurfaceHolder
         }
         
         if (isStreaming) {
-            binding.btnStream.text = "⏹"
+            binding.btnStream.text = "STOP"
+            binding.btnStream.setIconResource(R.drawable.ic_stop)
+            binding.btnStream.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(this, R.color.md_theme_error))
+            binding.btnStream.setTextColor(ContextCompat.getColor(this, R.color.md_theme_onError))
+            binding.btnStream.iconTint = ColorStateList.valueOf(ContextCompat.getColor(this, R.color.md_theme_onError))
         } else {
-            binding.btnStream.text = "▶"
+            binding.btnStream.text = "GO LIVE"
+            binding.btnStream.setIconResource(R.drawable.ic_stream_start)
+            binding.btnStream.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(this, R.color.md_theme_primary))
+            binding.btnStream.setTextColor(ContextCompat.getColor(this, R.color.md_theme_onPrimary))
+            binding.btnStream.iconTint = ColorStateList.valueOf(ContextCompat.getColor(this, R.color.md_theme_onPrimary))
         }
     }
 
@@ -1056,9 +1075,15 @@ class UnifiedStreamActivity : AppCompatActivity(), ConnectChecker, SurfaceHolder
         }
         
         if (isRecording) {
-            binding.btnRecord.text = "⏹"
+            binding.btnRecord.text = "STOP"
+            binding.btnRecord.setIconResource(R.drawable.ic_stop)
+            binding.btnRecord.setTextColor(ContextCompat.getColor(this, R.color.md_theme_error))
+            binding.btnRecord.iconTint = ColorStateList.valueOf(ContextCompat.getColor(this, R.color.md_theme_error))
         } else {
-            binding.btnRecord.text = "●"
+            binding.btnRecord.text = "REC"
+            binding.btnRecord.setIconResource(R.drawable.ic_record)
+            binding.btnRecord.setTextColor(ContextCompat.getColor(this, R.color.md_theme_error))
+            binding.btnRecord.iconTint = ColorStateList.valueOf(ContextCompat.getColor(this, R.color.md_theme_error))
         }
     }
 
@@ -1069,14 +1094,14 @@ class UnifiedStreamActivity : AppCompatActivity(), ConnectChecker, SurfaceHolder
 
     override fun onConnectionStarted(url: String) {
         runOnUiThread {
-            binding.btnStream.text = "⏹"
+            updateStreamButtonState()
         }
         Log.d(TAG, "Connection started: $url")
     }
 
     override fun onConnectionSuccess() {
         runOnUiThread {
-            binding.btnStream.text = "⏹"
+            updateStreamButtonState()
             startPreview()
         }
         
@@ -1089,11 +1114,9 @@ class UnifiedStreamActivity : AppCompatActivity(), ConnectChecker, SurfaceHolder
                 Log.d(TAG, "Using service stream start time: $streamStartTime")
             } else {
                 streamStartTime = System.currentTimeMillis()
-                Log.d(TAG, "No service start time, using current time: $streamStartTime")
             }
         } else {
             streamStartTime = System.currentTimeMillis()
-            Log.d(TAG, "No service available, using current time: $streamStartTime")
         }
         
         startStreamTimer()
@@ -1124,7 +1147,7 @@ class UnifiedStreamActivity : AppCompatActivity(), ConnectChecker, SurfaceHolder
 
     override fun onConnectionFailed(reason: String) {
         runOnUiThread {
-            binding.btnStream.text = "▶"
+            updateStreamButtonState()
             
             // Stop the stream timer when connection fails
             stopStreamTimer()
@@ -1135,7 +1158,7 @@ class UnifiedStreamActivity : AppCompatActivity(), ConnectChecker, SurfaceHolder
     override fun onDisconnect() {
         runOnUiThread {
             binding.txtBitrate.text = "0 Mbps"
-            binding.btnStream.text = "▶"
+            updateStreamButtonState()
             
             // Stop the stream timer when disconnected
             stopStreamTimer()
@@ -1145,7 +1168,7 @@ class UnifiedStreamActivity : AppCompatActivity(), ConnectChecker, SurfaceHolder
 
     override fun onAuthError() {
         runOnUiThread {
-            binding.btnStream.text = "▶"
+            updateStreamButtonState()
         }
     }
 
