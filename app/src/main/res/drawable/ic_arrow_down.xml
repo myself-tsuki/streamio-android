@@ -6,5 +6,5 @@
     android:viewportHeight="24">
     <path
         android:pathData="M7,10l5,5 5,-5z"
-        android:fillColor="@color/prism_neon_purple" />
+        android:fillColor="@color/md_theme_onSurfaceVariant" />
 </vector> 
