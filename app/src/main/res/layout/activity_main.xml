@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/md_theme_surface">
+    android:background="?attr/colorSurface">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:paddingHorizontal="20dp"
-            android:paddingTop="20dp"
+            android:paddingTop="24dp"
             android:paddingBottom="48dp">
 
             <!-- Top Studio Header -->
@@ -26,18 +26,18 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
-                android:layout_marginBottom="24dp">
+                android:layout_marginBottom="28dp">
 
-                <!-- Logo & Title -->
+                <!-- Logo in M3 Expressive Container -->
                 <com.google.android.material.card.MaterialCardView
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
+                    android:layout_width="52dp"
+                    android:layout_height="52dp"
                     android:layout_marginEnd="14dp"
-                    app:cardCornerRadius="14dp"
+                    app:cardCornerRadius="16dp"
                     app:cardElevation="0dp"
-                    app:strokeWidth="1dp"
-                    app:strokeColor="@color/md_theme_outlineVariant"
-                    app:cardBackgroundColor="@color/md_theme_surfaceContainerHigh"
+                    app:strokeWidth="1.5dp"
+                    app:strokeColor="?attr/colorOutlineVariant"
+                    app:cardBackgroundColor="?attr/colorSurfaceContainerHigh"
                     android:clipToOutline="true">
 
                     <ImageView
@@ -50,6 +50,7 @@
 
                 </com.google.android.material.card.MaterialCardView>
 
+                <!-- Brand Details -->
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -67,7 +68,7 @@
                             android:layout_height="wrap_content"
                             android:text="Stream Prime"
                             android:textAppearance="@style/TextAppearance.App.TitleLarge"
-                            android:textColor="@color/md_theme_onSurface"
+                            android:textColor="?attr/colorOnSurface"
                             android:textStyle="bold"
                             android:layout_marginEnd="8dp" />
 
@@ -78,9 +79,9 @@
                             android:textSize="10sp"
                             android:textStyle="bold"
                             android:letterSpacing="0.08"
-                            android:textColor="@color/md_theme_onPrimaryContainer"
+                            android:textColor="?attr/colorOnSecondaryContainer"
                             android:background="@drawable/prism_overlay_background"
-                            android:backgroundTint="@color/md_theme_primaryContainer"
+                            android:backgroundTint="?attr/colorSecondaryContainer"
                             android:paddingHorizontal="8dp"
                             android:paddingVertical="3dp" />
 
@@ -89,9 +90,10 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Professional Live Broadcast Engine"
+                        android:text="Live Broadcast &amp; Production Engine"
                         android:textAppearance="@style/TextAppearance.App.BodySmall"
-                        android:textColor="@color/md_theme_onSurfaceVariant" />
+                        android:textColor="?attr/colorOnSurfaceVariant"
+                        android:layout_marginTop="2dp" />
 
                 </LinearLayout>
 
@@ -102,12 +104,12 @@
                 android:id="@+id/card_start_stream"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                app:cardCornerRadius="24dp"
+                android:layout_marginBottom="24dp"
+                app:cardCornerRadius="28dp"
                 app:cardElevation="0dp"
                 app:strokeWidth="1.5dp"
-                app:strokeColor="@color/md_theme_primary"
-                app:cardBackgroundColor="@color/md_theme_surfaceContainerHigh"
+                app:strokeColor="?attr/colorPrimary"
+                app:cardBackgroundColor="?attr/colorSurfaceContainerHigh"
                 android:clickable="true"
                 android:focusable="true"
                 android:foreground="?attr/selectableItemBackground">
@@ -118,52 +120,84 @@
                     android:orientation="vertical"
                     android:padding="22dp">
 
-                    <!-- Status Pill -->
+                    <!-- Live Status Pill & Hero Icon -->
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:gravity="center_vertical"
-                        android:background="@drawable/prism_overlay_background"
-                        android:paddingHorizontal="10dp"
-                        android:paddingVertical="4dp"
-                        android:layout_marginBottom="14dp">
+                        android:layout_marginBottom="16dp">
 
-                        <View
-                            android:layout_width="8dp"
-                            android:layout_height="8dp"
-                            android:background="@drawable/live_status_indicator"
-                            android:layout_marginEnd="6dp" />
-
-                        <TextView
+                        <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="READY TO STREAM"
-                            android:textSize="11sp"
-                            android:textStyle="bold"
-                            android:letterSpacing="0.04"
-                            android:textColor="@color/md_theme_primary" />
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
+                            android:background="@drawable/prism_overlay_background"
+                            android:backgroundTint="?attr/colorSurfaceContainerHighest"
+                            android:paddingHorizontal="12dp"
+                            android:paddingVertical="5dp">
+
+                            <View
+                                android:layout_width="8dp"
+                                android:layout_height="8dp"
+                                android:background="@drawable/live_status_indicator"
+                                android:layout_marginEnd="8dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="READY TO STREAM"
+                                android:textSize="11sp"
+                                android:textStyle="bold"
+                                android:letterSpacing="0.05"
+                                android:textColor="?attr/colorPrimary" />
+
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="1dp"
+                            android:layout_weight="1" />
+
+                        <!-- Official Material Screen Share Icon -->
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            app:cardCornerRadius="20dp"
+                            app:cardElevation="0dp"
+                            app:cardBackgroundColor="?attr/colorPrimaryContainer">
+
+                            <ImageView
+                                android:layout_width="22dp"
+                                android:layout_height="22dp"
+                                android:layout_gravity="center"
+                                android:src="@drawable/ic_screen_share"
+                                app:tint="?attr/colorOnPrimaryContainer"
+                                android:contentDescription="Screen Share" />
+
+                        </com.google.android.material.card.MaterialCardView>
 
                     </LinearLayout>
 
-                    <!-- Headline & Description -->
+                    <!-- Title & Description -->
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Live Screen Stream"
                         android:textAppearance="@style/TextAppearance.App.HeadlineSmall"
-                        android:textColor="@color/md_theme_onSurface"
+                        android:textColor="?attr/colorOnSurface"
                         android:textStyle="bold"
-                        android:layout_marginBottom="6dp" />
+                        android:layout_marginBottom="8dp" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Broadcast screen capture, games, or camera with full hardware audio mixer and customizable stream overlays."
+                        android:text="Broadcast device screen, games, or camera with dual hardware audio mixer and customizable stream overlays."
                         android:textAppearance="@style/TextAppearance.App.BodyMedium"
-                        android:textColor="@color/md_theme_onSurfaceVariant"
-                        android:lineSpacingExtra="2dp"
-                        android:layout_marginBottom="20dp" />
+                        android:textColor="?attr/colorOnSurfaceVariant"
+                        android:lineSpacingExtra="3dp"
+                        android:layout_marginBottom="22dp" />
 
                     <!-- Action Bar Inside Hero Card -->
                     <LinearLayout
@@ -174,15 +208,16 @@
 
                         <com.google.android.material.button.MaterialButton
                             android:layout_width="wrap_content"
-                            android:layout_height="48dp"
+                            android:layout_height="52dp"
                             android:text="Start Broadcast"
                             android:textAppearance="@style/TextAppearance.App.LabelLarge"
-                            app:cornerRadius="24dp"
-                            app:icon="@drawable/ic_screen"
-                            app:iconPadding="8dp"
-                            app:iconTint="@color/md_theme_onPrimary"
-                            app:backgroundTint="@color/md_theme_primary"
-                            android:textColor="@color/md_theme_onPrimary"
+                            app:cornerRadius="26dp"
+                            app:icon="@drawable/ic_screen_share"
+                            app:iconSize="20dp"
+                            app:iconPadding="10dp"
+                            app:iconTint="?attr/colorOnPrimary"
+                            app:backgroundTint="?attr/colorPrimary"
+                            android:textColor="?attr/colorOnPrimary"
                             android:clickable="false"
                             android:focusable="false" />
 
@@ -195,7 +230,7 @@
                             android:layout_width="28dp"
                             android:layout_height="28dp"
                             android:src="@drawable/ic_arrow_right"
-                            app:tint="@color/md_theme_primary"
+                            app:tint="?attr/colorPrimary"
                             android:contentDescription="Launch" />
 
                     </LinearLayout>
@@ -204,18 +239,19 @@
 
             </com.google.android.material.card.MaterialCardView>
 
-            <!-- Section Label -->
+            <!-- Studio Tools Section Header -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Studio Tools"
                 android:textAppearance="@style/TextAppearance.App.LabelLarge"
-                android:textColor="@color/md_theme_primary"
-                android:letterSpacing="0.05"
+                android:textColor="?attr/colorPrimary"
+                android:textStyle="bold"
+                android:letterSpacing="0.06"
                 android:layout_marginStart="4dp"
                 android:layout_marginBottom="12dp" />
 
-            <!-- File Streaming Card -->
+            <!-- File Streaming Card (Official Material video_file icon) -->
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/card_file_streaming"
                 android:layout_width="match_parent"
@@ -224,8 +260,8 @@
                 app:cardCornerRadius="20dp"
                 app:cardElevation="0dp"
                 app:strokeWidth="1dp"
-                app:strokeColor="@color/md_theme_outlineVariant"
-                app:cardBackgroundColor="@color/md_theme_surfaceContainer"
+                app:strokeColor="?attr/colorOutlineVariant"
+                app:cardBackgroundColor="?attr/colorSurfaceContainer"
                 android:clickable="true"
                 android:focusable="true"
                 android:foreground="?attr/selectableItemBackground">
@@ -243,15 +279,15 @@
                         android:layout_marginEnd="16dp"
                         app:cardCornerRadius="14dp"
                         app:cardElevation="0dp"
-                        app:cardBackgroundColor="@color/md_theme_secondaryContainer">
+                        app:cardBackgroundColor="?attr/colorSecondaryContainer">
 
                         <ImageView
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:src="@drawable/ic_file"
+                            android:src="@drawable/ic_video_file"
                             android:scaleType="centerInside"
                             android:padding="12dp"
-                            app:tint="@color/md_theme_onSecondaryContainer"
+                            app:tint="?attr/colorOnSecondaryContainer"
                             android:contentDescription="File Streaming" />
 
                     </com.google.android.material.card.MaterialCardView>
@@ -267,15 +303,15 @@
                             android:layout_height="wrap_content"
                             android:text="File Streaming"
                             android:textAppearance="@style/TextAppearance.App.TitleMedium"
-                            android:textColor="@color/md_theme_onSurface"
+                            android:textColor="?attr/colorOnSurface"
                             android:textStyle="bold" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Broadcast pre-recorded video files in loop"
+                            android:text="Broadcast pre-recorded video files in continuous loop"
                             android:textAppearance="@style/TextAppearance.App.BodySmall"
-                            android:textColor="@color/md_theme_onSurfaceVariant"
+                            android:textColor="?attr/colorOnSurfaceVariant"
                             android:layout_marginTop="2dp" />
 
                     </LinearLayout>
@@ -284,24 +320,24 @@
                         android:layout_width="22dp"
                         android:layout_height="22dp"
                         android:src="@drawable/ic_arrow_right"
-                        app:tint="@color/md_theme_onSurfaceVariant"
+                        app:tint="?attr/colorOnSurfaceVariant"
                         android:contentDescription="Open File Streaming" />
 
                 </LinearLayout>
 
             </com.google.android.material.card.MaterialCardView>
 
-            <!-- Stream Settings Card -->
+            <!-- Stream Settings Card (Official Material tune icon) -->
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/card_settings"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="24dp"
+                android:layout_marginBottom="28dp"
                 app:cardCornerRadius="20dp"
                 app:cardElevation="0dp"
                 app:strokeWidth="1dp"
-                app:strokeColor="@color/md_theme_outlineVariant"
-                app:cardBackgroundColor="@color/md_theme_surfaceContainer"
+                app:strokeColor="?attr/colorOutlineVariant"
+                app:cardBackgroundColor="?attr/colorSurfaceContainer"
                 android:clickable="true"
                 android:focusable="true"
                 android:foreground="?attr/selectableItemBackground">
@@ -319,15 +355,15 @@
                         android:layout_marginEnd="16dp"
                         app:cardCornerRadius="14dp"
                         app:cardElevation="0dp"
-                        app:cardBackgroundColor="@color/md_theme_tertiaryContainer">
+                        app:cardBackgroundColor="?attr/colorTertiaryContainer">
 
                         <ImageView
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:src="@drawable/ic_settings"
+                            android:src="@drawable/ic_tune"
                             android:scaleType="centerInside"
                             android:padding="12dp"
-                            app:tint="@color/md_theme_onTertiaryContainer"
+                            app:tint="?attr/colorOnTertiaryContainer"
                             android:contentDescription="Settings" />
 
                     </com.google.android.material.card.MaterialCardView>
@@ -343,7 +379,7 @@
                             android:layout_height="wrap_content"
                             android:text="Stream Settings"
                             android:textAppearance="@style/TextAppearance.App.TitleMedium"
-                            android:textColor="@color/md_theme_onSurface"
+                            android:textColor="?attr/colorOnSurface"
                             android:textStyle="bold" />
 
                         <TextView
@@ -351,7 +387,7 @@
                             android:layout_height="wrap_content"
                             android:text="Resolution, bitrate, audio sync &amp; RTMP keys"
                             android:textAppearance="@style/TextAppearance.App.BodySmall"
-                            android:textColor="@color/md_theme_onSurfaceVariant"
+                            android:textColor="?attr/colorOnSurfaceVariant"
                             android:layout_marginTop="2dp" />
 
                     </LinearLayout>
@@ -360,7 +396,7 @@
                         android:layout_width="22dp"
                         android:layout_height="22dp"
                         android:src="@drawable/ic_arrow_right"
-                        app:tint="@color/md_theme_onSurfaceVariant"
+                        app:tint="?attr/colorOnSurfaceVariant"
                         android:contentDescription="Open Settings" />
 
                 </LinearLayout>
@@ -380,8 +416,9 @@
                     android:layout_height="wrap_content"
                     android:text="@string/version"
                     android:textAppearance="@style/TextAppearance.App.LabelSmall"
-                    android:textColor="@color/md_theme_outline"
+                    android:textColor="?attr/colorOutline"
                     android:background="@drawable/prism_overlay_background"
+                    android:backgroundTint="?attr/colorSurfaceContainerLow"
                     android:paddingHorizontal="14dp"
                     android:paddingVertical="6dp" />
 

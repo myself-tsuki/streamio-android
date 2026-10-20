@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/md_theme_surface">
+    android:background="?attr/colorSurface">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -30,8 +30,8 @@
                 app:cardCornerRadius="22dp"
                 app:cardElevation="0dp"
                 app:strokeWidth="1dp"
-                app:strokeColor="@color/md_theme_outlineVariant"
-                app:cardBackgroundColor="@color/md_theme_surfaceContainerHigh"
+                app:strokeColor="?attr/colorOutlineVariant"
+                app:cardBackgroundColor="?attr/colorSurfaceContainerHigh"
                 android:clickable="true"
                 android:focusable="true"
                 android:foreground="?attr/selectableItemBackground"
@@ -42,7 +42,7 @@
                     android:layout_height="22dp"
                     android:layout_gravity="center"
                     android:src="@drawable/ic_arrow_back"
-                    app:tint="@color/md_theme_onSurface" />
+                    app:tint="?attr/colorOnSurface" />
 
             </com.google.android.material.card.MaterialCardView>
 
@@ -59,7 +59,7 @@
                     android:layout_height="wrap_content"
                     android:text="Stream Studio"
                     android:textAppearance="@style/TextAppearance.App.TitleMedium"
-                    android:textColor="@color/md_theme_onSurface"
+                    android:textColor="?attr/colorOnSurface"
                     android:textStyle="bold" />
 
                 <TextView
@@ -69,7 +69,7 @@
                     android:textSize="9sp"
                     android:textStyle="bold"
                     android:letterSpacing="0.08"
-                    android:textColor="@color/md_theme_primary" />
+                    android:textColor="?attr/colorPrimary" />
 
             </LinearLayout>
 
@@ -81,8 +81,8 @@
                 app:cardCornerRadius="22dp"
                 app:cardElevation="0dp"
                 app:strokeWidth="1dp"
-                app:strokeColor="@color/md_theme_outlineVariant"
-                app:cardBackgroundColor="@color/md_theme_surfaceContainerHigh"
+                app:strokeColor="?attr/colorOutlineVariant"
+                app:cardBackgroundColor="?attr/colorSurfaceContainerHigh"
                 android:clickable="true"
                 android:focusable="true"
                 android:foreground="?attr/selectableItemBackground"
@@ -93,7 +93,7 @@
                     android:layout_height="22dp"
                     android:layout_gravity="center"
                     android:src="@drawable/ic_settings"
-                    app:tint="@color/md_theme_onSurface" />
+                    app:tint="?attr/colorOnSurface" />
 
             </com.google.android.material.card.MaterialCardView>
 
@@ -110,8 +110,8 @@
             app:cardCornerRadius="24dp"
             app:cardElevation="0dp"
             app:strokeWidth="1dp"
-            app:strokeColor="@color/md_theme_outlineVariant"
-            app:cardBackgroundColor="@color/md_theme_surfaceContainerLow"
+            app:strokeColor="?attr/colorOutlineVariant"
+            app:cardBackgroundColor="?attr/colorSurfaceContainerLow"
             app:layout_constraintTop_toBottomOf="@id/top_controls"
             app:layout_constraintBottom_toTopOf="@id/volume_controls"
             app:layout_constraintStart_toStartOf="parent"
@@ -138,8 +138,8 @@
                     app:cardCornerRadius="14dp"
                     app:cardElevation="2dp"
                     app:strokeWidth="1dp"
-                    app:strokeColor="@color/md_theme_outlineVariant"
-                    app:cardBackgroundColor="@color/md_theme_surfaceContainerHighest">
+                    app:strokeColor="?attr/colorOutlineVariant"
+                    app:cardBackgroundColor="?attr/colorSurfaceContainerHighest">
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -160,7 +160,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="LIVE"
-                            android:textColor="@color/md_theme_error"
+                            android:textColor="?attr/colorError"
                             android:textSize="11sp"
                             android:textStyle="bold"
                             android:layout_marginEnd="6dp" />
@@ -170,7 +170,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="00:00"
-                            android:textColor="@color/md_theme_onSurface"
+                            android:textColor="?attr/colorOnSurface"
                             android:textSize="11sp"
                             android:textStyle="bold" />
 
@@ -187,15 +187,15 @@
                     app:cardCornerRadius="14dp"
                     app:cardElevation="2dp"
                     app:strokeWidth="1dp"
-                    app:strokeColor="@color/md_theme_outlineVariant"
-                    app:cardBackgroundColor="@color/md_theme_surfaceContainerHighest">
+                    app:strokeColor="?attr/colorOutlineVariant"
+                    app:cardBackgroundColor="?attr/colorSurfaceContainerHighest">
 
                     <TextView
                         android:id="@+id/txt_bitrate"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="0.0 Mbps"
-                        android:textColor="@color/md_theme_primary"
+                        android:textColor="?attr/colorPrimary"
                         android:textAppearance="@style/TextAppearance.App.LabelSmall"
                         android:textStyle="bold"
                         android:paddingHorizontal="10dp"
@@ -203,7 +203,7 @@
 
                 </com.google.android.material.card.MaterialCardView>
 
-                <!-- Overlay Editor Button -->
+                <!-- Overlay Editor Button (Official Material 3 auto_awesome icon) -->
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/btn_overlay"
                     android:layout_width="44dp"
@@ -213,8 +213,8 @@
                     app:cardCornerRadius="22dp"
                     app:cardElevation="2dp"
                     app:strokeWidth="1dp"
-                    app:strokeColor="@color/md_theme_outlineVariant"
-                    app:cardBackgroundColor="@color/md_theme_surfaceContainerHighest"
+                    app:strokeColor="?attr/colorOutlineVariant"
+                    app:cardBackgroundColor="?attr/colorSurfaceContainerHighest"
                     android:clickable="true"
                     android:focusable="true"
                     android:foreground="?attr/selectableItemBackground"
@@ -224,8 +224,8 @@
                         android:layout_width="22dp"
                         android:layout_height="22dp"
                         android:layout_gravity="center"
-                        android:src="@drawable/ic_effects"
-                        app:tint="@color/md_theme_onSurface" />
+                        android:src="@drawable/ic_auto_awesome"
+                        app:tint="?attr/colorOnSurface" />
 
                 </com.google.android.material.card.MaterialCardView>
 
@@ -243,8 +243,8 @@
             app:cardCornerRadius="20dp"
             app:cardElevation="0dp"
             app:strokeWidth="1dp"
-            app:strokeColor="@color/md_theme_outlineVariant"
-            app:cardBackgroundColor="@color/md_theme_surfaceContainer"
+            app:strokeColor="?attr/colorOutlineVariant"
+            app:cardBackgroundColor="?attr/colorSurfaceContainer"
             app:layout_constraintBottom_toTopOf="@id/bottom_controls">
 
             <LinearLayout
@@ -268,7 +268,7 @@
                         android:layout_weight="1"
                         android:text="Audio Mixer"
                         android:textAppearance="@style/TextAppearance.App.LabelLarge"
-                        android:textColor="@color/md_theme_primary"
+                        android:textColor="?attr/colorPrimary"
                         android:textStyle="bold"
                         android:letterSpacing="0.04" />
 
@@ -286,7 +286,7 @@
                         android:layout_width="18dp"
                         android:layout_height="18dp"
                         android:src="@drawable/ic_mic_on"
-                        app:tint="@color/md_theme_primary"
+                        app:tint="?attr/colorPrimary"
                         android:layout_marginEnd="8dp" />
 
                     <TextView
@@ -294,7 +294,7 @@
                         android:layout_height="wrap_content"
                         android:text="Mic"
                         android:textAppearance="@style/TextAppearance.App.BodyMedium"
-                        android:textColor="@color/md_theme_onSurface"
+                        android:textColor="?attr/colorOnSurface"
                         android:textStyle="bold" />
 
                     <SeekBar
@@ -305,8 +305,8 @@
                         android:max="100"
                         android:progress="100"
                         android:splitTrack="false"
-                        android:progressTint="@color/md_theme_primary"
-                        android:thumbTint="@color/md_theme_primary" />
+                        android:progressTint="?attr/colorPrimary"
+                        android:thumbTint="?attr/colorPrimary" />
 
                     <TextView
                         android:id="@+id/txt_mic_volume"
@@ -314,13 +314,13 @@
                         android:layout_height="wrap_content"
                         android:text="100%"
                         android:textAppearance="@style/TextAppearance.App.LabelMedium"
-                        android:textColor="@color/md_theme_primary"
+                        android:textColor="?attr/colorPrimary"
                         android:textStyle="bold"
                         android:gravity="end" />
 
                 </LinearLayout>
 
-                <!-- Device Audio Volume -->
+                <!-- Device Audio Volume (Official Material ic_screen_share icon) -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -330,8 +330,8 @@
                     <ImageView
                         android:layout_width="18dp"
                         android:layout_height="18dp"
-                        android:src="@drawable/ic_screen"
-                        app:tint="@color/md_theme_secondary"
+                        android:src="@drawable/ic_screen_share"
+                        app:tint="?attr/colorSecondary"
                         android:layout_marginEnd="8dp" />
 
                     <TextView
@@ -339,7 +339,7 @@
                         android:layout_height="wrap_content"
                         android:text="Device"
                         android:textAppearance="@style/TextAppearance.App.BodyMedium"
-                        android:textColor="@color/md_theme_onSurface"
+                        android:textColor="?attr/colorOnSurface"
                         android:textStyle="bold" />
 
                     <SeekBar
@@ -350,8 +350,8 @@
                         android:max="100"
                         android:progress="100"
                         android:splitTrack="false"
-                        android:progressTint="@color/md_theme_secondary"
-                        android:thumbTint="@color/md_theme_secondary" />
+                        android:progressTint="?attr/colorSecondary"
+                        android:thumbTint="?attr/colorSecondary" />
 
                     <TextView
                         android:id="@+id/txt_device_volume"
@@ -359,7 +359,7 @@
                         android:layout_height="wrap_content"
                         android:text="100%"
                         android:textAppearance="@style/TextAppearance.App.LabelMedium"
-                        android:textColor="@color/md_theme_secondary"
+                        android:textColor="?attr/colorSecondary"
                         android:textStyle="bold"
                         android:gravity="end" />
 
@@ -392,14 +392,14 @@
                 app:iconSize="22dp"
                 app:iconGravity="textStart"
                 app:iconPadding="0dp"
-                app:iconTint="@color/md_theme_primary"
+                app:iconTint="?attr/colorPrimary"
                 android:text="MIC"
                 android:textSize="11sp"
                 android:textStyle="bold"
-                android:textColor="@color/md_theme_onSurface"
-                app:backgroundTint="@color/md_theme_surfaceContainerHigh"
+                android:textColor="?attr/colorOnSurface"
+                app:backgroundTint="?attr/colorSurfaceContainerHigh"
                 app:strokeWidth="1dp"
-                app:strokeColor="@color/md_theme_outlineVariant"
+                app:strokeColor="?attr/colorOutlineVariant"
                 android:contentDescription="Microphone" />
 
             <!-- Stream Start/Stop Hero Button -->
@@ -413,12 +413,12 @@
                 app:iconSize="24dp"
                 app:iconGravity="textStart"
                 app:iconPadding="8dp"
-                app:iconTint="@color/md_theme_onPrimary"
+                app:iconTint="?attr/colorOnPrimary"
                 android:text="GO LIVE"
                 android:textAppearance="@style/TextAppearance.App.LabelLarge"
                 android:textStyle="bold"
-                android:textColor="@color/md_theme_onPrimary"
-                app:backgroundTint="@color/md_theme_primary"
+                android:textColor="?attr/colorOnPrimary"
+                app:backgroundTint="?attr/colorPrimary"
                 app:elevation="4dp"
                 android:contentDescription="Stream" />
 
@@ -432,14 +432,14 @@
                 app:iconSize="22dp"
                 app:iconGravity="textStart"
                 app:iconPadding="0dp"
-                app:iconTint="@color/md_theme_error"
+                app:iconTint="?attr/colorError"
                 android:text="REC"
                 android:textSize="11sp"
                 android:textStyle="bold"
-                android:textColor="@color/md_theme_error"
-                app:backgroundTint="@color/md_theme_surfaceContainerHigh"
+                android:textColor="?attr/colorError"
+                app:backgroundTint="?attr/colorSurfaceContainerHigh"
                 app:strokeWidth="1dp"
-                app:strokeColor="@color/md_theme_outlineVariant"
+                app:strokeColor="?attr/colorOutlineVariant"
                 android:contentDescription="Record" />
 
         </LinearLayout>

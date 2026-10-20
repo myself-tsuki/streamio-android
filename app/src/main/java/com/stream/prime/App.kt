@@ -20,6 +20,7 @@ import android.app.Activity
 import android.app.Application
 import android.os.Bundle
 import androidx.multidex.MultiDexApplication
+import com.google.android.material.color.DynamicColors
 import com.stream.prime.utils.SystemBarInsets
 
 /**
@@ -29,6 +30,7 @@ class App : MultiDexApplication() {
 
   override fun onCreate() {
     super.onCreate()
+    DynamicColors.applyToActivitiesIfAvailable(this)
     registerActivityLifecycleCallbacks(object : Application.ActivityLifecycleCallbacks {
       override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
         SystemBarInsets.apply(activity)
