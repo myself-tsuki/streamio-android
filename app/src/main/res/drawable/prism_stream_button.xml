@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ripple xmlns:android="http://schemas.android.com/apk/res/android"
-    android:color="@color/prism_overlay_medium">
+    android:color="@color/md_theme_onPrimary">
     <item>
         <shape android:shape="oval">
-            <solid android:color="@color/prism_neon_accent" />
-            <stroke android:width="2dp" android:color="@color/prism_neon_accent" />
+            <solid android:color="@color/md_theme_primary" />
         </shape>
     </item>
 </ripple> 
