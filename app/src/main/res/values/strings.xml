@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Stream Prime</string>
+    <string name="app_name">Streamio</string>
     <string name="app_description">Professional mobile streaming platform with advanced features and multi-platform support</string>
     <string name="streaming_modes">Streaming Modes</string>
     <string name="advanced_features">Advanced Features</string>
@@ -56,7 +56,7 @@
     <string name="rotation_mode">Advanced Mode</string>
     
     <!-- Legacy Strings (keeping for compatibility) -->
-        <string name="welcome_title">Stream Prime</string>
+        <string name="welcome_title">Streamio</string>
     <string name="welcome_subtitle">Professional Mobile Game Streaming</string>
     <string name="tv_select">Select Streaming Mode</string>
     <string name="from_file">File Streaming</string>
@@ -219,25 +219,25 @@
     <string name="stream_from_file_description">Stream pre-recorded video files</string>
     <string name="settings_description">Configure video, audio, and streaming parameters</string>
     <string name="mute">Mute</string>
-    <string name="accessibility_service_label">Stream Prime</string>
-    <string name="accessibility_service_description">Optional mode that lets Stream Prime keep microphone capture while a game is using voice chat and helps protect an active stream or recording from background cleanup. It does not read or control screen content.</string>
-    <string name="accessibility_permission_required">Enable Stream Prime in Accessibility settings</string>
-    <string name="accessibility_permission_guide">Open Accessibility settings, select Stream Prime, and turn it on.</string>
+    <string name="accessibility_service_label">Streamio</string>
+    <string name="accessibility_service_description">Optional mode that lets Streamio keep microphone capture while a game is using voice chat and helps protect an active stream or recording from background cleanup. It does not read or control screen content.</string>
+    <string name="accessibility_permission_required">Enable Streamio in Accessibility settings</string>
+    <string name="accessibility_permission_guide">Open Accessibility settings, select Streamio, and turn it on.</string>
     <string name="game_voice_chat_compatibility_title">Game voice-chat microphone</string>
     <string name="game_voice_chat_compatibility_summary">This option is for recording your microphone while a game is using voice chat.</string>
-    <string name="game_voice_chat_compatibility_warning">This mode uses Android Accessibility to give Stream Prime microphone-sharing priority and to hold a priority binding only while you are streaming or recording. Its active state is shown in the permanent notification. Stream Prime does not read or control the game interface. Voice-chat audio from other players may still be blocked by the game.</string>
+    <string name="game_voice_chat_compatibility_warning">This mode uses Android Accessibility to give Streamio microphone-sharing priority and to hold a priority binding only while you are streaming or recording. Its active state is shown in the permanent notification. Streamio does not read or control the game interface. Voice-chat audio from other players may still be blocked by the game.</string>
     <string name="game_voice_chat_compatibility_disabled">Off — normal Android microphone rules apply</string>
-    <string name="game_voice_chat_compatibility_permission_needed">Permission needed — enable Stream Prime in Accessibility</string>
+    <string name="game_voice_chat_compatibility_permission_needed">Permission needed — enable Streamio in Accessibility</string>
     <string name="game_voice_chat_compatibility_auto_disabled">Mic Share is off. Voice Chat Compatibility was disabled.</string>
     <string name="game_voice_chat_compatibility_ready">Ready — Make sure your headphones are connected to use in-game voice chat while streaming or recording.</string>
     <string name="game_voice_chat_compatibility_active">Active — Make sure your headphones are connected to use in-game voice chat while streaming or recording.</string>
     <string name="open_accessibility_settings">Open Accessibility settings</string>
     <string name="background_protection_title">Keep active capture running</string>
-    <string name="background_protection_message">Allow unrestricted battery use so Android is less likely to stop an ongoing stream or recording when Stream Prime is in the background. Some phones may also require Background activity or Auto-launch to be enabled in the phone’s app settings.</string>
+    <string name="background_protection_message">Allow unrestricted battery use so Android is less likely to stop an ongoing stream or recording when Streamio is in the background. Some phones may also require Background activity or Auto-launch to be enabled in the phone’s app settings.</string>
     <string name="allow_unrestricted_battery">Allow unrestricted battery</string>
     <string name="not_now">Not now</string>
     <string name="enable_compatibility_mode">Enable compatibility mode</string>
-    <string name="mic_share_not_ready">Game voice-chat compatibility is enabled, but Stream Prime is not active. Enable it in Accessibility settings and try again.</string>
+    <string name="mic_share_not_ready">Game voice-chat compatibility is enabled, but Streamio is not active. Enable it in Accessibility settings and try again.</string>
     <string name="overlay_screen_edit_hint">One finger moves. Pinch zooms. Two-finger twist rotates.</string>
     <string name="edit_screen">Edit Screen</string>
     <string name="edit_layer">Edit Layer</string>

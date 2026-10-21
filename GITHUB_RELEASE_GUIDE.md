@@ -1,6 +1,6 @@
 # GitHub Open-Source Release Guide
 
-Use this guide to publish Stream Prime professionally on GitHub.
+Use this guide to publish Streamio professionally on GitHub.
 
 ## 1. Create The Repository
 
@@ -116,15 +116,15 @@ Create a release on GitHub:
 1. Go to Releases.
 2. Click "Draft a new release".
 3. Choose or create tag `v1.0.0`.
-4. Title it `Stream Prime v1.0.0`.
+4. Title it `Streamio v1.0.0`.
 5. Attach APK artifacts only if they are properly signed and intended for public download.
 
 ## 6. Good Release Notes Template
 
 ```markdown
-## Stream Prime v1.0.0
+## Streamio v1.0.0
 
-First public open-source release of Stream Prime.
+First public open-source release of Streamio.
 
 ### Highlights
 - RTMP live streaming from Android

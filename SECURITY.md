@@ -2,7 +2,7 @@
 
 ## Supported Versions
 
-Security fixes are currently provided for the latest public version of Stream Prime.
+Security fixes are currently provided for the latest public version of Streamio.
 
 ## Reporting A Vulnerability
 

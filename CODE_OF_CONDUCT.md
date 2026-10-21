@@ -2,7 +2,7 @@
 
 ## Our Pledge
 
-We pledge to make participation in Stream Prime welcoming, respectful, and harassment-free for everyone.
+We pledge to make participation in Streamio welcoming, respectful, and harassment-free for everyone.
 
 ## Expected Behavior
 

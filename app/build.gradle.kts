@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-  namespace = "com.stream.prime"
+  namespace = "com.shashwat.streamio"
   compileSdk = 36
 
   defaultConfig {
-    applicationId = "com.stream.prime"
+    applicationId = "com.shashwat.streamio"
     minSdk = 21  // Updated to Android 5.0 for better compatibility with modern features
     targetSdk = 36
     versionCode = libs.versions.versionCode.get().toInt()

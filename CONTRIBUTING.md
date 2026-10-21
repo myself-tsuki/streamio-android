@@ -1,6 +1,6 @@
-# Contributing To Stream Prime
+# Contributing To Streamio
 
-Thank you for helping improve Stream Prime. Contributions of all sizes are welcome, including bug reports, documentation fixes, UI improvements, tests, and streaming compatibility work.
+Thank you for helping improve Streamio. Contributions of all sizes are welcome, including bug reports, documentation fixes, UI improvements, tests, and streaming compatibility work.
 
 ## Ways To Contribute
 

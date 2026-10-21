@@ -1,6 +1,6 @@
 ---
 name: Feature request
-about: Suggest an improvement for Stream Prime
+about: Suggest an improvement for Streamio
 title: '[Feature]: '
 labels: enhancement
 assignees: ''

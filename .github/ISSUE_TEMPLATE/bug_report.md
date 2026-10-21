@@ -1,6 +1,6 @@
 ---
 name: Bug report
-about: Report a reproducible Stream Prime issue
+about: Report a reproducible Streamio issue
 title: '[Bug]: '
 labels: bug
 assignees: ''
@@ -29,7 +29,7 @@ Add screenshots or a short screen recording if useful. Redact stream keys and pr
 
 ## Device And Streaming Details
 
-- Stream Prime version/commit:
+- Streamio version/commit:
 - Device:
 - Android version:
 - Streaming mode: camera / screen / file

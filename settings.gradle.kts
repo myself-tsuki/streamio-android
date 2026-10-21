@@ -18,5 +18,5 @@ dependencyResolutionManagement {
   }
 }
 
-rootProject.name = "StreamPrime"
+rootProject.name = "Streamio"
 include(":app", ":rtmp", ":encoder", ":rtsp", ":library", ":srt", ":udp", ":common", ":extra-sources")

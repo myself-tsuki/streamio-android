@@ -77,7 +77,7 @@
         android:value="true" />
 
     <activity
-        android:name="com.stream.prime.SplashActivity"
+        android:name=".SplashActivity"
         android:label="@string/app_name"
         android:exported="true"
         android:screenOrientation="unspecified"
@@ -92,7 +92,7 @@
     </activity>
 
     <activity
-        android:name="com.stream.prime.MainActivity"
+        android:name=".MainActivity"
         android:label="@string/app_name"
         android:exported="false"
         android:screenOrientation="unspecified"
@@ -134,7 +134,7 @@
         android:exported="false"
         android:theme="@style/Theme.RootEncoder" />
 
-    <activity android:name="com.stream.prime.rotation.RotationActivity"
+    <activity android:name=".rotation.RotationActivity"
         android:label="@string/rotation_rtmp"
         android:screenOrientation="fullSensor"
         android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize"
@@ -149,7 +149,7 @@
 
     <!--
       Optional sideload compatibility mode. It is never started by the app; Android binds it only
-      after the user explicitly enables Stream Prime in Accessibility settings.
+      after the user explicitly enables Streamio in Accessibility settings.
     -->
     <service
         android:name=".accessibility.StreamAccessibilityService"
