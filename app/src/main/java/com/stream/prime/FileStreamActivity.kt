@@ -4,22 +4,24 @@ import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.widget.Toast
+import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.core.content.ContextCompat
-import com.stream.prime.R
-import com.stream.prime.databinding.ActivityFileStreamBinding
+import com.stream.prime.file.CupertinoFileStreamScreen
 import com.stream.prime.file.FileStreamingActivity
 import com.stream.prime.settings.StreamSettingsActivity
 
 class FileStreamActivity : AppCompatActivity() {
-    
-    private lateinit var binding: ActivityFileStreamBinding
-    private var selectedVideoUri: Uri? = null
-    
+
+    private var selectedVideoUri by mutableStateOf<Uri?>(null)
+
     private val requestPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
     ) { isGranted ->
@@ -29,55 +31,35 @@ class FileStreamActivity : AppCompatActivity() {
             Toast.makeText(this, "Storage permission required to select video files", Toast.LENGTH_LONG).show()
         }
     }
-    
+
     private val filePickerLauncher = registerForActivityResult(
         ActivityResultContracts.GetContent()
     ) { uri ->
-        android.util.Log.d("FileStreamActivity", "File picker result: $uri")
         uri?.let {
             selectedVideoUri = it
-            binding.tvSelectedFile.text = "Video file selected"
-            binding.btnStartStream.isEnabled = true
             Toast.makeText(this, "Video file selected successfully", Toast.LENGTH_SHORT).show()
-            android.util.Log.d("FileStreamActivity", "Video file selected: $it")
-        } ?: run {
-            android.util.Log.d("FileStreamActivity", "No file selected")
         }
     }
-    
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityFileStreamBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-        
-        setupUI()
-        setupClickListeners()
-    }
-    
-    private fun setupUI() {
-        binding.btnStartStream.isEnabled = false
-        binding.tvSelectedFile.text = "No file selected"
-    }
-    
-    private fun setupClickListeners() {
-        binding.btnSelectFile.setOnClickListener {
-            checkPermissionAndPickFile()
-        }
-        
-        binding.btnStartStream.setOnClickListener {
-            startFileStreaming()
-        }
-        
-        binding.btnBack.setOnClickListener {
-            finish()
-        }
-        
-        binding.btnSettings.setOnClickListener {
-            val intent = Intent(this, StreamSettingsActivity::class.java)
-            startActivity(intent)
+
+        window.statusBarColor = android.graphics.Color.BLACK
+        window.navigationBarColor = android.graphics.Color.BLACK
+
+        setContent {
+            CupertinoFileStreamScreen(
+                selectedUri = selectedVideoUri,
+                onBrowseFiles = { checkPermissionAndPickFile() },
+                onStartStream = { startFileStreaming() },
+                onOpenSettings = {
+                    val intent = Intent(this, StreamSettingsActivity::class.java)
+                    startActivity(intent)
+                },
+                onBack = { finish() }
+            )
         }
     }
-    
     private fun checkPermissionAndPickFile() {
         // For Android 11+ (API 30+), READ_EXTERNAL_STORAGE is not required for GetContent()
         // The GetContent() contract handles file access automatically

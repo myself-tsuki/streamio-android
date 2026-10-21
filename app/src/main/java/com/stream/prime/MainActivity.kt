@@ -1,18 +1,3 @@
-/*
- * Copyright (C) 2024 pedroSG94.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package com.stream.prime
 
 import android.Manifest
@@ -21,25 +6,23 @@ import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.widget.Toast
+import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import com.stream.prime.databinding.ActivityMainBinding
+import com.stream.prime.home.CupertinoHomeScreen
 import com.stream.prime.settings.StreamSettingsActivity
-import android.util.Log
-import android.os.Handler
 
 class MainActivity : AppCompatActivity() {
-
-    private lateinit var binding: ActivityMainBinding
 
     companion object {
         private const val PERMISSION_REQUEST_CODE = 100
         private const val OVERLAY_PERMISSION_REQUEST_CODE = 101
-        private const val PREFS_NAME = "MainActivityPrefs"
-        private const val KEY_PERMISSIONS_REQUESTED = "permissions_requested"
         private val REQUIRED_PERMISSIONS = arrayOf(
             Manifest.permission.RECORD_AUDIO,
             Manifest.permission.CAMERA,
@@ -50,12 +33,14 @@ class MainActivity : AppCompatActivity() {
 
     private var overlayPermissionDialogShown = false
     private lateinit var overlayPermissionLauncher: androidx.activity.result.ActivityResultLauncher<android.content.Intent>
+    private var hasOverlayPermissionState by mutableStateOf(false)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-        binding.mainVersionText.text = getString(R.string.version_format, BuildConfig.VERSION_NAME)
+
+        // Apple Dark Mode system bars
+        window.statusBarColor = android.graphics.Color.BLACK
+        window.navigationBarColor = android.graphics.Color.BLACK
 
         // Register for activity result in onCreate
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
@@ -64,25 +49,42 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        setupClickListeners()
+        updateOverlayState()
         checkAndRequestPermissions()
+
+        setContent {
+            CupertinoHomeScreen(
+                versionName = BuildConfig.VERSION_NAME,
+                hasOverlayPermission = hasOverlayPermissionState,
+                onStartScreenStream = {
+                    val intent = Intent(this, UnifiedStreamActivity::class.java)
+                    startActivity(intent)
+                },
+                onOpenFileStreaming = {
+                    val intent = Intent(this, FileStreamActivity::class.java)
+                    startActivity(intent)
+                },
+                onOpenSettings = {
+                    val intent = Intent(this, StreamSettingsActivity::class.java)
+                    startActivity(intent)
+                },
+                onRequestOverlayPermission = {
+                    requestOverlayPermission()
+                }
+            )
+        }
     }
 
-    private fun setupClickListeners() {
-        binding.cardStartStream.setOnClickListener {
-            val intent = Intent(this, UnifiedStreamActivity::class.java)
-            startActivity(intent)
-        }
+    override fun onResume() {
+        super.onResume()
+        updateOverlayState()
+    }
 
-        // File Streaming option - use view binding
-        binding.cardFileStreaming.setOnClickListener {
-            val intent = Intent(this, FileStreamActivity::class.java)
-            startActivity(intent)
-        }
-
-        binding.cardSettings.setOnClickListener {
-            val intent = Intent(this, StreamSettingsActivity::class.java)
-            startActivity(intent)
+    private fun updateOverlayState() {
+        hasOverlayPermissionState = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            android.provider.Settings.canDrawOverlays(this)
+        } else {
+            true
         }
     }
 

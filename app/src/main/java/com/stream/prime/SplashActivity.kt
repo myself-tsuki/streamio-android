@@ -20,19 +20,16 @@ class SplashActivity : AppCompatActivity() {
         setContentView(binding.root)
         binding.versionText.text = getString(R.string.version_format, BuildConfig.VERSION_NAME)
 
-        // Hide action bar for full-screen experience
         supportActionBar?.hide()
-
-        // Quick Material 3 entrance animation
         startAnimations()
 
-        // Navigate to MainActivity smoothly after 800ms
+        // Immediate responsive launch
         Handler(Looper.getMainLooper()).postDelayed({
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
             finish()
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
-        }, 850)
+        }, 200)
     }
 
     private fun startAnimations() {

@@ -1,47 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Material Design 3 Dark Theme Palette (Studio Broadcast) -->
-    <color name="md_theme_primary">#6CD2FF</color>
-    <color name="md_theme_onPrimary">#00354A</color>
-    <color name="md_theme_primaryContainer">#004D6B</color>
-    <color name="md_theme_onPrimaryContainer">#BFE9FF</color>
+    <!-- Apple Cupertino Dark Theme Palette -->
+    <color name="md_theme_primary">#007AFF</color>
+    <color name="md_theme_onPrimary">#FFFFFF</color>
+    <color name="md_theme_primaryContainer">#0A84FF</color>
+    <color name="md_theme_onPrimaryContainer">#FFFFFF</color>
     
-    <color name="md_theme_secondary">#B5C9D7</color>
-    <color name="md_theme_onSecondary">#20333E</color>
-    <color name="md_theme_secondaryContainer">#364955</color>
-    <color name="md_theme_onSecondaryContainer">#D1E5F3</color>
+    <color name="md_theme_secondary">#5E5CE6</color>
+    <color name="md_theme_onSecondary">#FFFFFF</color>
+    <color name="md_theme_secondaryContainer">#323238</color>
+    <color name="md_theme_onSecondaryContainer">#FFFFFF</color>
     
-    <color name="md_theme_tertiary">#C5C2EA</color>
-    <color name="md_theme_onTertiary">#2E2D4D</color>
-    <color name="md_theme_tertiaryContainer">#454365</color>
-    <color name="md_theme_onTertiaryContainer">#E2DFFF</color>
+    <color name="md_theme_tertiary">#FF9500</color>
+    <color name="md_theme_onTertiary">#FFFFFF</color>
+    <color name="md_theme_tertiaryContainer">#3D2600</color>
+    <color name="md_theme_onTertiaryContainer">#FFD480</color>
     
-    <color name="md_theme_error">#FFB4AB</color>
-    <color name="md_theme_onError">#690005</color>
-    <color name="md_theme_errorContainer">#93000A</color>
-    <color name="md_theme_onErrorContainer">#FFDAD6</color>
+    <color name="md_theme_error">#FF453A</color>
+    <color name="md_theme_onError">#FFFFFF</color>
+    <color name="md_theme_errorContainer">#4D0A06</color>
+    <color name="md_theme_onErrorContainer">#FFB4AB</color>
     
-    <color name="md_theme_background">#0F1216</color>
-    <color name="md_theme_onBackground">#F0F4F8</color>
-    <color name="md_theme_surface">#0F1216</color>
-    <color name="md_theme_onSurface">#F0F4F8</color>
-    <color name="md_theme_surfaceVariant">#2C3440</color>
-    <color name="md_theme_onSurfaceVariant">#B2BCC7</color>
+    <color name="md_theme_background">#000000</color>
+    <color name="md_theme_onBackground">#FFFFFF</color>
+    <color name="md_theme_surface">#000000</color>
+    <color name="md_theme_onSurface">#FFFFFF</color>
+    <color name="md_theme_surfaceVariant">#1C1C1E</color>
+    <color name="md_theme_onSurfaceVariant">#8E8E93</color>
     
-    <!-- M3 Tonal Surface Containers -->
-    <color name="md_theme_surfaceContainerLowest">#0A0D10</color>
-    <color name="md_theme_surfaceContainerLow">#14181F</color>
-    <color name="md_theme_surfaceContainer">#1A1F28</color>
-    <color name="md_theme_surfaceContainerHigh">#232936</color>
-    <color name="md_theme_surfaceContainerHighest">#2D3444</color>
+    <!-- Cupertino Inset Grouped Containers -->
+    <color name="md_theme_surfaceContainerLowest">#000000</color>
+    <color name="md_theme_surfaceContainerLow">#121214</color>
+    <color name="md_theme_surfaceContainer">#1C1C1E</color>
+    <color name="md_theme_surfaceContainerHigh">#2C2C2E</color>
+    <color name="md_theme_surfaceContainerHighest">#3A3A3C</color>
     
-    <color name="md_theme_outline">#7C8793</color>
-    <color name="md_theme_outlineVariant">#262D38</color>
-    <color name="md_theme_inverseSurface">#F0F4F8</color>
-    <color name="md_theme_inverseOnSurface">#1A1F28</color>
-    <color name="md_theme_inversePrimary">#00668F</color>
+    <color name="md_theme_outline">#48484A</color>
+    <color name="md_theme_outlineVariant">#2C2C2E</color>
+    <color name="md_theme_inverseSurface">#FFFFFF</color>
+    <color name="md_theme_inverseOnSurface">#1C1C1E</color>
+    <color name="md_theme_inversePrimary">#007AFF</color>
     <color name="md_theme_shadow">#000000</color>
-    <color name="md_theme_surfaceTint">#6CD2FF</color>
+    <color name="md_theme_surfaceTint">#007AFF</color>
     <color name="md_theme_scrim">#000000</color>
 
     <!-- Custom/Legacy Colors (map to Material Design 3 as appropriate) -->
@@ -77,20 +77,20 @@
     <color name="surface_variant">@color/md_theme_surfaceVariant</color>
 
     <!-- UI Component & State Colors -->
-    <color name="overlay_medium">#800F1216</color>
-    <color name="overlay_light">#400F1216</color>
+    <color name="overlay_medium">#80000000</color>
+    <color name="overlay_light">#40000000</color>
     <color name="error_variant">@color/md_theme_errorContainer</color>
     <color name="primary_dark">@color/md_theme_primaryContainer</color>
     <color name="border_light">@color/md_theme_outlineVariant</color>
-    <color name="success">#34D399</color>
-    <color name="success_variant">#059669</color>
+    <color name="success">#34C759</color>
+    <color name="success_variant">#30D158</color>
     <color name="card_background">@color/md_theme_surfaceContainer</color>
     <color name="text_tertiary">@color/md_theme_outline</color>
     <color name="gradient_end">@color/md_theme_primary</color>
     <color name="gradient_center">@color/md_theme_primaryContainer</color>
     <color name="gradient_start">@color/md_theme_secondaryContainer</color>
     <color name="accent">@color/md_theme_primary</color>
-    <color name="glass_background">#CC1A1F28</color>
+    <color name="glass_background">#CC1C1C1E</color>
     <color name="glass_border">@color/md_theme_outlineVariant</color>
 
     <color name="surface_dim">@color/md_theme_surfaceContainerLowest</color>

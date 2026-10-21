@@ -1,6 +1,7 @@
 plugins {
   alias(libs.plugins.android.application)
   alias(libs.plugins.jetbrains.kotlin)
+  alias(libs.plugins.jetbrains.compose.compiler)
 }
 
 android {
@@ -46,6 +47,7 @@ android {
   buildFeatures {
     buildConfig = true
     viewBinding = true
+    compose = true
   }
   
   lint {
@@ -76,5 +78,18 @@ dependencies {
   implementation(libs.androidx.multidex)
   implementation("com.google.android.material:material:1.11.0")
   implementation("com.google.code.gson:gson:2.10.1")
+
+  // Jetpack Compose & Compose Cupertino (iOS UI)
+  val composeBom = platform("androidx.compose:compose-bom:2024.09.00")
+  implementation(composeBom)
+  implementation("androidx.compose.ui:ui")
+  implementation("androidx.compose.ui:ui-graphics")
+  implementation("androidx.compose.foundation:foundation")
+  implementation("androidx.compose.material3:material3")
+  implementation("androidx.activity:activity-compose:1.9.2")
+  implementation("io.github.alexzhirkevich:cupertino:0.1.0-alpha04")
+  implementation("io.github.alexzhirkevich:cupertino-adaptive:0.1.0-alpha04")
+  implementation("io.github.alexzhirkevich:cupertino-icons-extended:0.1.0-alpha04")
+
   testImplementation(libs.junit)
 }
