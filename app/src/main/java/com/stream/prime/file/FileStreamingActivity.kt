@@ -25,10 +25,13 @@ class FileStreamingActivity : AppCompatActivity(), FileStreamService.StreamCallb
     companion object {
         private const val TAG = "FileStreamingActivity"
         const val EXTRA_VIDEO_URI = "video_uri"
+        const val EXTRA_PLAYLIST_URIS = "playlist_uris"
+        const val EXTRA_LOOP_ENABLED = "loop_enabled"
     }
 
     private lateinit var binding: ActivityFileStreamingBinding
     private var videoUri: Uri? = null
+    private var playlistUris: List<Uri> = emptyList()
     private var isStreaming = false
     private var isRecording = false
     private var isMicMuted = false
@@ -42,9 +45,17 @@ class FileStreamingActivity : AppCompatActivity(), FileStreamService.StreamCallb
         binding = ActivityFileStreamingBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Get video URI from intent
-        videoUri = intent.getStringExtra(EXTRA_VIDEO_URI)?.let { Uri.parse(it) }
-        
+        val urisList = intent.getStringArrayListExtra(EXTRA_PLAYLIST_URIS)?.map { Uri.parse(it) }
+        if (!urisList.isNullOrEmpty()) {
+            playlistUris = urisList
+            videoUri = urisList.first()
+        } else {
+            videoUri = intent.getStringExtra(EXTRA_VIDEO_URI)?.let { Uri.parse(it) }
+            playlistUris = listOfNotNull(videoUri)
+        }
+
+        isLoopEnabled = intent.getBooleanExtra(EXTRA_LOOP_ENABLED, false)
+
         if (videoUri == null) {
             Toast.makeText(this, "No video file selected", Toast.LENGTH_SHORT).show()
             finish()
@@ -79,18 +90,23 @@ class FileStreamingActivity : AppCompatActivity(), FileStreamService.StreamCallb
         
         Log.d(TAG, "Buttons forced to VISIBLE")
         
-        // Set video file info with actual file name
-        videoUri?.let { uri ->
-            try {
-                val fileName = getFileName(uri)
-                binding.tvVideoInfo.text = "Video: $fileName"
-                Log.d(TAG, "Video file loaded: $fileName")
-            } catch (e: Exception) {
-                binding.tvVideoInfo.text = "Video file loaded"
-                Log.e(TAG, "Error getting file name: ${e.message}")
+        // Set video file info with playlist info
+        if (playlistUris.size > 1) {
+            val fileName = getFileName(playlistUris[0])
+            binding.tvVideoInfo.text = "Sequence: 1 of ${playlistUris.size} ($fileName)"
+        } else {
+            videoUri?.let { uri ->
+                try {
+                    val fileName = getFileName(uri)
+                    binding.tvVideoInfo.text = "Video: $fileName"
+                    Log.d(TAG, "Video file loaded: $fileName")
+                } catch (e: Exception) {
+                    binding.tvVideoInfo.text = "Video file loaded"
+                    Log.e(TAG, "Error getting file name: ${e.message}")
+                }
+            } ?: run {
+                binding.tvVideoInfo.text = "No video file"
             }
-        } ?: run {
-            binding.tvVideoInfo.text = "No video file"
         }
         
         // Initialize stream timer
@@ -254,10 +270,14 @@ class FileStreamingActivity : AppCompatActivity(), FileStreamService.StreamCallb
                 Log.d(TAG, "Service instance found, setting video URI")
                 Log.d(TAG, "Service status: ${service.getServiceStatus()}")
                 
-                // Set callback for auto-stop communication
+                // Set callback for auto-stop and video change communication
                 service.setStreamCallback(this)
-                
-                service.setVideoUri(videoUri!!)
+
+                if (playlistUris.isNotEmpty()) {
+                    service.setPlaylist(playlistUris)
+                } else {
+                    service.setVideoUri(videoUri!!)
+                }
                 service.setLoopEnabled(isLoopEnabled)
                 
                 updateStatusText("Initializing stream...")
@@ -324,6 +344,17 @@ class FileStreamingActivity : AppCompatActivity(), FileStreamService.StreamCallb
     override fun onStreamAutoStop() {
         Log.d(TAG, "Received auto-stop callback from service")
         handleStreamAutoStop()
+    }
+
+    override fun onVideoChanged(index: Int, total: Int, uri: Uri) {
+        Log.d(TAG, "Received video changed: index=$index, total=$total, uri=$uri")
+        runOnUiThread {
+            videoUri = uri
+            val fileName = getFileName(uri)
+            binding.tvVideoInfo.text = "Sequence: ${index + 1} of $total ($fileName)"
+            updateStatusText("Streaming track ${index + 1} of $total")
+            Toast.makeText(this, "Playing track ${index + 1} of $total: $fileName", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun startRecord() {

@@ -28,6 +28,7 @@ class FileStreamService : Service(), ConnectChecker, VideoDecoderInterface, Audi
     // Callback interface for activity communication
     interface StreamCallback {
         fun onStreamAutoStop()
+        fun onVideoChanged(index: Int, total: Int, uri: Uri)
     }
 
     private var streamCallback: StreamCallback? = null
@@ -115,9 +116,25 @@ class FileStreamService : Service(), ConnectChecker, VideoDecoderInterface, Audi
         return START_STICKY
     }
 
+    private val playlist: MutableList<Uri> = mutableListOf()
+    private var currentPlaylistIndex: Int = 0
+
     fun setVideoUri(uri: Uri) {
         videoUri = uri
+        playlist.clear()
+        playlist.add(uri)
+        currentPlaylistIndex = 0
         Log.d(TAG, "Video URI set: $uri")
+    }
+
+    fun setPlaylist(uris: List<Uri>) {
+        playlist.clear()
+        playlist.addAll(uris)
+        currentPlaylistIndex = 0
+        if (playlist.isNotEmpty()) {
+            videoUri = playlist[0]
+        }
+        Log.d(TAG, "Playlist set with ${playlist.size} videos. First: $videoUri")
     }
 
     fun setLoopEnabled(enabled: Boolean) {
@@ -500,67 +517,85 @@ class FileStreamService : Service(), ConnectChecker, VideoDecoderInterface, Audi
     override fun onAudioDecoderFinished() {
         Log.d(TAG, "Audio decoder finished")
         audioDecoderFinished = true
-        
-        if (manualLoopEnabled) {
-            Log.d(TAG, "Manual loop enabled - audio finished, checking if video also finished")
-            
-            // Only stop the stream if both video and audio have finished
-            if (videoDecoderFinished && audioDecoderFinished) {
-                Log.d(TAG, "Both video and audio finished - checking manual loop")
-                
-                Log.d(TAG, "Manual loop enabled - restarting stream in 2 seconds")
-                
-                // Stop current stream
+
+        if (videoDecoderFinished && audioDecoderFinished) {
+            Log.d(TAG, "Both video and audio finished. Current index: $currentPlaylistIndex, total videos: ${playlist.size}")
+
+            if (playlist.size > 1 && currentPlaylistIndex + 1 < playlist.size) {
+                // Advance to next video in sequence
+                currentPlaylistIndex++
+                videoUri = playlist[currentPlaylistIndex]
+                Log.d(TAG, "Advancing to next video (#${currentPlaylistIndex + 1} of ${playlist.size}): $videoUri")
+
                 try {
                     if (genericFromFile.isStreaming) {
                         genericFromFile.stopStream()
                         prepared = false
                     }
                 } catch (e: Exception) {
-                    Log.e(TAG, "Failed to stop stream for restart: ${e.message}")
+                    Log.e(TAG, "Failed to stop stream before next video: ${e.message}")
                 }
-                
-                // Restart stream after 2 seconds
+
+                streamCallback?.onVideoChanged(currentPlaylistIndex, playlist.size, videoUri!!)
+                showNotification("Playing Next Video", "Track ${currentPlaylistIndex + 1} of ${playlist.size}")
+
                 restartTimer = android.os.Handler(android.os.Looper.getMainLooper())
                 restartTimer?.postDelayed({
-                    Log.d(TAG, "Restarting stream for manual loop")
                     if (endpoint != null && videoUri != null) {
-                        // Reset decoder flags
                         videoDecoderFinished = false
                         audioDecoderFinished = false
-                        
-                        // Prepare and start stream again
                         if (prepareStream()) {
                             startStream(endpoint!!)
                         }
                     }
-                }, 2000) // 2 second delay
-                
-            } else {
-                Log.d(TAG, "Audio finished but video still running - waiting for video to finish")
-            }
-        } else {
-            Log.d(TAG, "Manual loop disabled - audio finished, checking if video also finished")
-            
-            // Only stop the stream if both video and audio have finished
-            if (videoDecoderFinished && audioDecoderFinished) {
-                Log.d(TAG, "Manual loop disabled - stopping stream")
+                }, 1000)
+            } else if (manualLoopEnabled) {
+                // Loop back to first video
+                Log.d(TAG, "End of sequence reached. Looping from start.")
+                if (playlist.isNotEmpty()) {
+                    currentPlaylistIndex = 0
+                    videoUri = playlist[0]
+                }
+
                 try {
                     if (genericFromFile.isStreaming) {
-                        Log.d(TAG, "Stopping stream automatically after both video and audio completion")
                         genericFromFile.stopStream()
                         prepared = false
-                        showNotification("File Stream Completed", "Video file finished streaming")
-                        
-                        // Notify activity about auto-stop
+                    }
+                } catch (e: Exception) {
+                    Log.e(TAG, "Failed to stop stream for loop: ${e.message}")
+                }
+
+                if (videoUri != null) {
+                    streamCallback?.onVideoChanged(currentPlaylistIndex, playlist.size, videoUri!!)
+                }
+
+                restartTimer = android.os.Handler(android.os.Looper.getMainLooper())
+                restartTimer?.postDelayed({
+                    if (endpoint != null && videoUri != null) {
+                        videoDecoderFinished = false
+                        audioDecoderFinished = false
+                        if (prepareStream()) {
+                            startStream(endpoint!!)
+                        }
+                    }
+                }, 1500)
+            } else {
+                // Sequence finished and no loop
+                Log.d(TAG, "Sequence stream finished completely. Stopping stream.")
+                try {
+                    if (genericFromFile.isStreaming) {
+                        genericFromFile.stopStream()
+                        prepared = false
+                        showNotification("File Stream Completed", "All sequence videos finished streaming")
                         streamCallback?.onStreamAutoStop()
                     }
                 } catch (e: Exception) {
                     Log.e(TAG, "Failed to auto-stop stream: ${e.message}")
                 }
-            } else {
-                Log.d(TAG, "Audio finished but video still running - waiting for video to finish")
             }
+        } else {
+            Log.d(TAG, "Waiting for video decoder to finish (videoFinished=$videoDecoderFinished, audioFinished=$audioDecoderFinished)")
         }
     }
 

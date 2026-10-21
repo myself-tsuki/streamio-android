@@ -135,7 +135,8 @@ fun CupertinoSettingsScreen(
                     .fillMaxSize()
                     .padding(paddingValues)
                     .verticalScroll(rememberScrollState())
-                    .padding(bottom = 36.dp)
+                    .padding(horizontal = 4.dp, vertical = 6.dp)
+                    .padding(bottom = 30.dp)
             ) {
                 // Section 1: Orientation
                 CupertinoSection(

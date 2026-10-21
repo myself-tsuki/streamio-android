@@ -89,7 +89,7 @@ fun CupertinoHomeScreen(
                     .background(CupertinoTheme.colorScheme.systemGroupedBackground)
                     .padding(paddingValues)
                     .verticalScroll(rememberScrollState())
-                    .padding(horizontal = 16.dp, vertical = 12.dp)
+                    .padding(horizontal = 4.dp, vertical = 8.dp)
             ) {
                 // Section 1: Hero Broadcast Card
                 CupertinoSection {

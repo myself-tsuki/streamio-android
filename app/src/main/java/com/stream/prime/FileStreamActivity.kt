@@ -6,6 +6,7 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.provider.OpenableColumns
 import android.widget.Toast
 import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
@@ -16,11 +17,13 @@ import androidx.compose.runtime.setValue
 import androidx.core.content.ContextCompat
 import com.stream.prime.file.CupertinoFileStreamScreen
 import com.stream.prime.file.FileStreamingActivity
+import com.stream.prime.file.VideoQueueItem
 import com.stream.prime.settings.StreamSettingsActivity
 
 class FileStreamActivity : AppCompatActivity() {
 
-    private var selectedVideoUri by mutableStateOf<Uri?>(null)
+    private var playlist by mutableStateOf<List<VideoQueueItem>>(emptyList())
+    private var isLoopEnabled by mutableStateOf(false)
 
     private val requestPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
@@ -33,11 +36,14 @@ class FileStreamActivity : AppCompatActivity() {
     }
 
     private val filePickerLauncher = registerForActivityResult(
-        ActivityResultContracts.GetContent()
-    ) { uri ->
-        uri?.let {
-            selectedVideoUri = it
-            Toast.makeText(this, "Video file selected successfully", Toast.LENGTH_SHORT).show()
+        ActivityResultContracts.GetMultipleContents()
+    ) { uris ->
+        if (!uris.isNullOrEmpty()) {
+            val newItems = uris.map { uri ->
+                VideoQueueItem(uri = uri, name = getFileName(uri))
+            }
+            playlist = playlist + newItems
+            Toast.makeText(this, "Added ${newItems.size} video(s) to sequence", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -49,8 +55,14 @@ class FileStreamActivity : AppCompatActivity() {
 
         setContent {
             CupertinoFileStreamScreen(
-                selectedUri = selectedVideoUri,
-                onBrowseFiles = { checkPermissionAndPickFile() },
+                videos = playlist,
+                isLoopEnabled = isLoopEnabled,
+                onAddVideos = { checkPermissionAndPickFile() },
+                onMoveUp = { moveUp(it) },
+                onMoveDown = { moveDown(it) },
+                onRemoveVideo = { removeVideo(it) },
+                onClearAll = { clearAll() },
+                onToggleLoop = { isLoopEnabled = it },
                 onStartStream = { startFileStreaming() },
                 onOpenSettings = {
                     val intent = Intent(this, StreamSettingsActivity::class.java)
@@ -60,14 +72,59 @@ class FileStreamActivity : AppCompatActivity() {
             )
         }
     }
+
+    private fun getFileName(uri: Uri): String {
+        var name = ""
+        try {
+            contentResolver.query(uri, null, null, null, null)?.use { cursor ->
+                val nameIndex = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME)
+                if (nameIndex != -1 && cursor.moveToFirst()) {
+                    name = cursor.getString(nameIndex)
+                }
+            }
+        } catch (_: Exception) {}
+        if (name.isEmpty()) {
+            name = uri.lastPathSegment?.substringAfterLast('/') ?: "Video_${System.currentTimeMillis()}"
+        }
+        return name
+    }
+
+    private fun moveUp(index: Int) {
+        if (index > 0 && index < playlist.size) {
+            val mutable = playlist.toMutableList()
+            val item = mutable.removeAt(index)
+            mutable.add(index - 1, item)
+            playlist = mutable
+        }
+    }
+
+    private fun moveDown(index: Int) {
+        if (index >= 0 && index < playlist.size - 1) {
+            val mutable = playlist.toMutableList()
+            val item = mutable.removeAt(index)
+            mutable.add(index + 1, item)
+            playlist = mutable
+        }
+    }
+
+    private fun removeVideo(index: Int) {
+        if (index in playlist.indices) {
+            val mutable = playlist.toMutableList()
+            mutable.removeAt(index)
+            playlist = mutable
+        }
+    }
+
+    private fun clearAll() {
+        playlist = emptyList()
+    }
+
     private fun checkPermissionAndPickFile() {
-        // For Android 11+ (API 30+), READ_EXTERNAL_STORAGE is not required for GetContent()
-        // The GetContent() contract handles file access automatically
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.R) {
-            // Android 11+ - no permission needed for GetContent()
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            openFilePicker()
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             openFilePicker()
         } else {
-            // Android 10 and below - check for READ_EXTERNAL_STORAGE permission
             when {
                 ContextCompat.checkSelfPermission(
                     this,
@@ -76,32 +133,32 @@ class FileStreamActivity : AppCompatActivity() {
                     openFilePicker()
                 }
                 shouldShowRequestPermissionRationale(Manifest.permission.READ_EXTERNAL_STORAGE) -> {
-                    // Show explanation to user
                     Toast.makeText(this, "Storage permission is needed to access video files", Toast.LENGTH_LONG).show()
                     requestPermissionLauncher.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
                 }
                 else -> {
-                    // Request permission
                     requestPermissionLauncher.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
                 }
             }
         }
     }
-    
+
     private fun openFilePicker() {
-        android.util.Log.d("FileStreamActivity", "Opening file picker for video files")
         filePickerLauncher.launch("video/*")
     }
-    
+
     private fun startFileStreaming() {
-        selectedVideoUri?.let { uri ->
-            android.util.Log.d("FileStreamActivity", "Starting file streaming with URI: $uri")
-            val intent = Intent(this, FileStreamingActivity::class.java).apply {
-                putExtra(FileStreamingActivity.EXTRA_VIDEO_URI, uri.toString())
-            }
-            startActivity(intent)
-        } ?: run {
-            Toast.makeText(this, "Please select a video file first", Toast.LENGTH_SHORT).show()
+        if (playlist.isEmpty()) {
+            Toast.makeText(this, "Please select at least one video file", Toast.LENGTH_SHORT).show()
+            return
         }
+
+        val uriStrings = ArrayList(playlist.map { it.uri.toString() })
+        val intent = Intent(this, FileStreamingActivity::class.java).apply {
+            putStringArrayListExtra(FileStreamingActivity.EXTRA_PLAYLIST_URIS, uriStrings)
+            putExtra(FileStreamingActivity.EXTRA_VIDEO_URI, uriStrings.first())
+            putExtra(FileStreamingActivity.EXTRA_LOOP_ENABLED, isLoopEnabled)
+        }
+        startActivity(intent)
     }
 } 
