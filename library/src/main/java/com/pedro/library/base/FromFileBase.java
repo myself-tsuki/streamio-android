@@ -24,6 +24,7 @@ import android.media.MediaCodec;
 import android.media.MediaFormat;
 import android.net.Uri;
 import android.os.Build;
+import android.view.Surface;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -688,12 +689,14 @@ public abstract class FromFileBase {
     int height = videoDecoder.getHeight();
     boolean wasRunning = videoDecoder.isRunning();
     VideoDecoder videoDecoder = new VideoDecoder(videoDecoderInterface, decoderInterfaceVideo);
-    videoDecoder.setExtractor(this.videoDecoder.getExtractor());
     runnable.run(videoDecoder);
-    if (width != videoDecoder.getWidth() || height != videoDecoder.getHeight()) throw new IOException("Resolution must be the same that the previous file");
+    if (glInterface == null && (width != videoDecoder.getWidth() || height != videoDecoder.getHeight())) {
+      throw new IOException("Resolution must be the same that the previous file");
+    }
     this.videoDecoder.stop();
     this.videoDecoder = videoDecoder;
-    videoDecoder.prepareVideo(glInterface.getSurface());
+    Surface surface = glInterface != null ? glInterface.getSurface() : videoEncoder.getInputSurface();
+    videoDecoder.prepareVideo(surface);
     if (wasRunning) videoDecoder.start();
   }
 
@@ -702,7 +705,6 @@ public abstract class FromFileBase {
     boolean isStereo = audioDecoder.isStereo();
     boolean wasRunning = audioDecoder.isRunning();
     AudioDecoder audioDecoder = new AudioDecoder(getMicrophoneData, audioDecoderInterface, decoderInterfaceAudio);
-    audioDecoder.setExtractor(this.audioDecoder.getExtractor());
     runnable.run(audioDecoder);
     if (sampleRate != audioDecoder.getSampleRate()) throw new IOException("SampleRate must be the same that the previous file");
     if (isStereo != audioDecoder.isStereo()) throw new IOException("Channels must be the same that the previous file");

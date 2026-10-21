@@ -334,9 +334,9 @@ class FileStreamingActivity : AppCompatActivity(), FileStreamService.StreamCallb
             isStreaming = false
             updateStreamButtonState()
             stopStreamTimer()
-            updateStatusText("Stream completed - video finished")
+            updateStatusText("Sequence completed - all files streamed")
             
-            Toast.makeText(this, "File streaming completed - video finished", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, "All selected files have finished streaming", Toast.LENGTH_LONG).show()
         }
     }
 
