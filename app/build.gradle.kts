@@ -77,7 +77,7 @@ dependencies {
   implementation(libs.androidx.appcompat)
   implementation(libs.androidx.multidex)
   implementation("com.google.android.material:material:1.11.0")
-  implementation("com.google.code.gson:gson:2.10.1")
+  implementation("com.google.code.gson:gson:2.15.0")
 
   // Jetpack Compose & Compose Cupertino (iOS UI)
   val composeBom = platform("androidx.compose:compose-bom:2025.10.00")
