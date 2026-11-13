@@ -80,11 +80,12 @@ dependencies {
   implementation("com.google.code.gson:gson:2.10.1")
 
   // Jetpack Compose & Compose Cupertino (iOS UI)
-  val composeBom = platform("androidx.compose:compose-bom:2024.09.00")
+  val composeBom = platform("androidx.compose:compose-bom:2025.10.00")
   implementation(composeBom)
   implementation("androidx.compose.ui:ui")
   implementation("androidx.compose.ui:ui-graphics")
   implementation("androidx.compose.foundation:foundation")
+  // Material 3 Expressive (MaterialExpressiveTheme, MotionScheme.expressive, shape-morphing buttons)
   implementation("androidx.compose.material3:material3")
   implementation("androidx.activity:activity-compose:1.9.2")
   implementation("io.github.alexzhirkevich:cupertino:0.1.0-alpha04")
