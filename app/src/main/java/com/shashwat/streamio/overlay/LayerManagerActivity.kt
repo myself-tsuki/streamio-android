@@ -1,5 +1,6 @@
 package com.shashwat.streamio.overlay
 
+import androidx.activity.enableEdgeToEdge
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
@@ -18,13 +19,12 @@ class LayerManagerActivity : AppCompatActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
 
-    window.statusBarColor = android.graphics.Color.BLACK
-    window.navigationBarColor = android.graphics.Color.BLACK
+    enableEdgeToEdge()
 
     refresh()
 
     setContent {
-      CupertinoLayerManagerScreen(
+      OverlayLibraryScreen(
         projects = projectsState,
         activeId = activeIdState,
         onCreateProject = {

@@ -1,5 +1,6 @@
 package com.shashwat.streamio
 
+import androidx.activity.enableEdgeToEdge
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -15,7 +16,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import com.shashwat.streamio.home.CupertinoHomeScreen
+import com.shashwat.streamio.home.HomeScreen
+import com.shashwat.streamio.settings.SettingsManager
 import com.shashwat.streamio.settings.StreamSettingsActivity
 
 class MainActivity : AppCompatActivity() {
@@ -34,13 +36,12 @@ class MainActivity : AppCompatActivity() {
     private var overlayPermissionDialogShown = false
     private lateinit var overlayPermissionLauncher: androidx.activity.result.ActivityResultLauncher<android.content.Intent>
     private var hasOverlayPermissionState by mutableStateOf(false)
+    private var destinationSummaryState by mutableStateOf("")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // Apple Dark Mode system bars
-        window.statusBarColor = android.graphics.Color.BLACK
-        window.navigationBarColor = android.graphics.Color.BLACK
+        enableEdgeToEdge()
 
         // Register for activity result in onCreate
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
@@ -53,8 +54,9 @@ class MainActivity : AppCompatActivity() {
         checkAndRequestPermissions()
 
         setContent {
-            CupertinoHomeScreen(
+            HomeScreen(
                 versionName = BuildConfig.VERSION_NAME,
+                destinationSummary = destinationSummaryState,
                 hasOverlayPermission = hasOverlayPermissionState,
                 onStartScreenStream = {
                     val intent = Intent(this, UnifiedStreamActivity::class.java)
@@ -84,7 +86,16 @@ class MainActivity : AppCompatActivity() {
         updateOverlayState()
     }
 
+    private fun buildDestinationSummary(): String = try {
+        val vertical = SettingsManager.getStreamingMode(this) == "Vertical"
+        val h = if (vertical) SettingsManager.getVerticalWidth(this) else SettingsManager.getLandscapeHeight(this)
+        val fps = if (vertical) SettingsManager.getVerticalFps(this) else SettingsManager.getLandscapeFps(this)
+        val kbps = if (vertical) SettingsManager.getVerticalBitrate(this) else SettingsManager.getLandscapeBitrate(this)
+        "${SettingsManager.getStreamingService(this)} · ${h}p$fps · ${"%.1f".format(kbps / 1000.0)}\u00A0Mbps"
+    } catch (_: Exception) { "Set up a destination in Stream settings" }
+
     private fun updateOverlayState() {
+        destinationSummaryState = buildDestinationSummary()
         hasOverlayPermissionState = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             android.provider.Settings.canDrawOverlays(this)
         } else {
